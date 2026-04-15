@@ -1,0 +1,21 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.py[cod]
+.env
+.env.*
+
+# Generated pipeline cache/output. Regenerate locally when needed.
+ai_pipeline/processed/
+processed/
+output/
+
+# Source lecture files can contain private course material.
+input/**/*.pdf
+ai_pipeline/input/**/*.pdf
+
+# Keep deployable quiz data tracked.
+!docs/data/
+!docs/data/**
+docs/data/**/.DS_Store
+docs/data/.DS_Store

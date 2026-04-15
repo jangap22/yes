@@ -120,6 +120,51 @@ button {
   align-items: center;
 }
 
+.exam-ratio-panel {
+  margin: -8px 0 20px;
+  padding: 14px;
+  border: 1px solid #dce6f5;
+  border-radius: 8px;
+  background: #f7fbff;
+}
+
+.ratio-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.chapter-ratio-list {
+  display: grid;
+  gap: 10px;
+}
+
+.chapter-ratio-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(160px, 2fr) 120px 90px;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.86rem;
+}
+
+.chapter-ratio-title {
+  font-weight: 700;
+}
+
+.chapter-ratio-row input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.chapter-ratio-value,
+.chapter-ratio-count,
+#ratio-summary {
+  color: var(--muted);
+}
+
 select,
 button {
   padding: 8px;
@@ -362,5 +407,9 @@ button.main-btn {
 
   .btn-group {
     flex-direction: column;
+  }
+
+  .chapter-ratio-row {
+    grid-template-columns: 1fr;
   }
 }

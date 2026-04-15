@@ -127,53 +127,85 @@ export function gradeQuestion(question, userAnswer, isExamMode = false) {
   };
 }
 
-export function buildMockExam(masterData) {
-  if (masterData.length < 20) {
-    throw new Error(`데이터가 부족합니다 (최소 20문제 필요). 현재: ${masterData.length}`);
+function getChapterCounts(masterData) {
+  return masterData.reduce((counts, question) => {
+    counts[question.chapter] = (counts[question.chapter] || 0) + 1;
+    return counts;
+  }, {});
+}
+
+function allocateChapterQuestionCounts(masterData, chapterWeights, totalCount) {
+  const chapterCounts = getChapterCounts(masterData);
+  const chapters = Object.keys(chapterCounts).sort();
+  const weightedChapters = chapters.map((chapter) => ({
+    chapter,
+    available: chapterCounts[chapter],
+    weight: Math.max(0, Number(chapterWeights?.[chapter]) || 0),
+  }));
+  const totalWeight = weightedChapters.reduce((sum, item) => sum + item.weight, 0);
+  const normalizedChapters = totalWeight > 0
+    ? weightedChapters
+    : weightedChapters.map((item) => ({ ...item, weight: 1 }));
+  const normalizedWeight = normalizedChapters.reduce((sum, item) => sum + item.weight, 0);
+
+  const allocations = normalizedChapters.map((item) => {
+    const exact = (item.weight / normalizedWeight) * totalCount;
+    const count = Math.min(item.available, Math.floor(exact));
+    return {
+      ...item,
+      exact,
+      count,
+      remainder: exact - Math.floor(exact),
+    };
+  });
+
+  let assigned = allocations.reduce((sum, item) => sum + item.count, 0);
+  while (assigned < totalCount) {
+    const candidate = allocations
+      .filter((item) => item.count < item.available)
+      .sort((a, b) => b.remainder - a.remainder || b.weight - a.weight)[0];
+    if (!candidate) {
+      break;
+    }
+    candidate.count += 1;
+    candidate.remainder = 0;
+    assigned += 1;
   }
 
-  const chapters = [...new Set(masterData.map((question) => question.chapter))].sort();
-  const firstChapter = chapters[0];
+  return allocations.filter((item) => item.count > 0);
+}
+
+export function buildMockExam(masterData, options = {}) {
+  const totalCount = options.totalCount || 20;
+  if (masterData.length < totalCount) {
+    throw new Error(`데이터가 부족합니다 (최소 ${totalCount}문제 필요). 현재: ${masterData.length}`);
+  }
+
   const getRandom = (pool, count) => shuffle(pool).slice(0, count);
+  const chapterPlan = allocateChapterQuestionCounts(
+    masterData,
+    options.chapterWeights || {},
+    totalCount
+  );
+  let selectedQuestions = [];
 
-  let selectedQuestions = [
-    ...getRandom(
-      masterData.filter((question) => question.type === "ox"),
-      2
-    ),
-    ...getRandom(
-      masterData.filter((question) => question.type === "multiple"),
-      2
-    ),
-    ...getRandom(
-      masterData.filter((question) => question.type === "short"),
-      8
-    ),
-    ...getRandom(
-      masterData.filter((question) => question.type === "essay"),
-      8
-    ),
-  ];
+  chapterPlan.forEach((plan) => {
+    const pool = masterData.filter((question) => question.chapter === plan.chapter);
+    selectedQuestions.push(...getRandom(pool, plan.count));
+  });
 
-  if (selectedQuestions.length < 20) {
+  if (selectedQuestions.length < totalCount) {
     const remaining = masterData.filter(
       (question) => !selectedQuestions.some((selected) => selected.id === question.id)
     );
-    selectedQuestions = selectedQuestions.concat(getRandom(remaining, 20 - selectedQuestions.length));
-  }
-
-  const firstChapterQuestions = masterData.filter(
-    (question) => question.chapter === firstChapter
-  );
-  if (firstChapterQuestions.length && selectedQuestions.length) {
-    const picked = firstChapterQuestions[Math.floor(Math.random() * firstChapterQuestions.length)];
-    const replaceIndex = Math.floor(Math.random() * selectedQuestions.length);
-    selectedQuestions[replaceIndex] = picked;
+    selectedQuestions = selectedQuestions.concat(
+      getRandom(remaining, totalCount - selectedQuestions.length)
+    );
   }
 
   return {
     questions: shuffle(selectedQuestions),
-    firstChapter,
+    chapterPlan,
   };
 }
 

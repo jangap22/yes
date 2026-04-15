@@ -19,6 +19,7 @@ const state = {
   selectedChoice: "",
   subject: null,
   lectures: [],
+  chapterWeights: {},
 };
 
 const ui = {
@@ -31,6 +32,9 @@ const ui = {
   wrongCountText: document.getElementById("wrong-count"),
   examBtn: document.getElementById("exam-btn"),
   resetBtn: document.getElementById("reset-btn"),
+  ratioPanel: document.getElementById("exam-ratio-panel"),
+  ratioList: document.getElementById("chapter-ratio-list"),
+  ratioSummary: document.getElementById("ratio-summary"),
   filterSection: document.getElementById("filter-section"),
   badge: document.getElementById("type-badge"),
   currentIdx: document.getElementById("current-idx"),
@@ -99,6 +103,86 @@ function populateChapters(questions) {
     option.textContent = chapter;
     ui.chapter.appendChild(option);
   });
+}
+
+function getChapters() {
+  return [...new Set(state.masterData.map((question) => question.chapter))].sort();
+}
+
+function getChapterAvailability() {
+  return state.masterData.reduce((counts, question) => {
+    counts[question.chapter] = (counts[question.chapter] || 0) + 1;
+    return counts;
+  }, {});
+}
+
+function getNormalizedChapterRatios() {
+  const chapters = getChapters();
+  const totalWeight = chapters.reduce(
+    (sum, chapter) => sum + Math.max(0, Number(state.chapterWeights[chapter]) || 0),
+    0
+  );
+  const fallbackWeight = chapters.length || 1;
+
+  return chapters.map((chapter) => {
+    const weight = totalWeight > 0 ? state.chapterWeights[chapter] : 1;
+    const denominator = totalWeight > 0 ? totalWeight : fallbackWeight;
+    const ratio = denominator > 0 ? weight / denominator : 0;
+    return {
+      chapter,
+      weight,
+      ratio,
+      expectedCount: Math.round(ratio * 20),
+    };
+  });
+}
+
+function updateRatioLabels() {
+  const rows = getNormalizedChapterRatios();
+  rows.forEach((row) => {
+    const valueNode = document.querySelector(`[data-ratio-value="${CSS.escape(row.chapter)}"]`);
+    if (valueNode) {
+      valueNode.textContent = `${Math.round(row.ratio * 100)}% · 약 ${row.expectedCount}문항`;
+    }
+  });
+
+  const activeRows = rows.filter((row) => row.weight > 0);
+  ui.ratioSummary.textContent = activeRows.length
+    ? `총 20문항 기준 · ${activeRows.length}개 챕터 반영`
+    : "모든 비율이 0이면 균등 비율로 출제됩니다.";
+}
+
+function renderChapterRatioSliders() {
+  const chapters = getChapters();
+  const availability = getChapterAvailability();
+  state.chapterWeights = {};
+  ui.ratioList.innerHTML = "";
+
+  if (!chapters.length) {
+    ui.ratioPanel.hidden = true;
+    return;
+  }
+
+  ui.ratioPanel.hidden = false;
+  chapters.forEach((chapter) => {
+    state.chapterWeights[chapter] = 1;
+    const row = document.createElement("label");
+    row.className = "chapter-ratio-row";
+    row.innerHTML = `
+      <span class="chapter-ratio-title">${chapter}</span>
+      <input type="range" min="0" max="100" value="1" step="1" data-ratio-slider="${chapter}">
+      <span class="chapter-ratio-value" data-ratio-value="${chapter}"></span>
+      <span class="chapter-ratio-count">${availability[chapter]}문제 보유</span>
+    `;
+    const slider = row.querySelector("input");
+    slider.addEventListener("input", () => {
+      state.chapterWeights[chapter] = Number(slider.value);
+      updateRatioLabels();
+    });
+    ui.ratioList.appendChild(row);
+  });
+
+  updateRatioLabels();
 }
 
 function getCurrentQuestion() {
@@ -226,6 +310,7 @@ async function loadSelectedQuestionSet() {
   state.isExamMode = false;
 
   populateChapters(state.masterData);
+  renderChapterRatioSliders();
   updateReviewUI();
   setQuestionCount();
   resetStudy();
@@ -267,7 +352,10 @@ function startReview() {
 
 function startMockExam() {
   try {
-    const exam = buildMockExam(state.masterData);
+    const exam = buildMockExam(state.masterData, {
+      chapterWeights: state.chapterWeights,
+      totalCount: 20,
+    });
     state.isExamMode = true;
     state.examScores = [];
     state.filteredData = exam.questions;
@@ -277,9 +365,12 @@ function startMockExam() {
     setQuestionCount();
     ui.currentIdx.textContent = "1";
     showQuestion();
+    const planText = exam.chapterPlan
+      .map((plan) => `${plan.chapter}: ${plan.count}문항`)
+      .join("\n");
     window.alert(`[모의고사 세션 시작]
-- 유형: OX(2), 객관식(2), 단답(8), 서술(8)
-- 단원: ${exam.firstChapter}(1문항 포함)
+- 챕터 비율 기반 출제
+${planText}
 - 총 20문항`);
   } catch (error) {
     window.alert(error.message);

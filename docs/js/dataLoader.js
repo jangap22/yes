@@ -154,12 +154,20 @@ export async function fetchIndex() {
     return fetchIndexManifest();
   }
 }
+// 배포 환경에서는 상대 경로가 달라질 수 있으므로, BASE_PATH를 동적으로 설정합니다.
+const BASE_PATH = window.location.pathname.startsWith("/yes")
+  ? "/yes"
+  : "";
 
 export async function fetchLecture(subjectId, lectureFile) {
-  const response = await fetch(`./data/subjects/${subjectId}/${lectureFile}`);
+  const response = await fetch(
+    `${BASE_PATH}/data/subjects/${subjectId}/${lectureFile}`
+  );
+
   if (!response.ok) {
     throw new Error(`${subjectId}/${lectureFile} JSON을 불러오지 못했습니다.`);
   }
+
   return response.json();
 }
 
