@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>암기 마스터</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main class="study-shell">
+      <a href="./index.html" class="back-link">목록으로 돌아가기</a>
+      <section class="container quiz-container">
+        <div class="hero-head">
+          <p class="eyebrow">Memorization Master</p>
+          <h1 id="subject-title">암기 마스터</h1>
+          <p id="subject-subtitle" class="hero-copy">데이터 로드 중...</p>
+        </div>
+
+        <div id="filter-section" class="filter-section">
+          <select id="question-set-select">
+            <option value="">문제셋 로드 중...</option>
+          </select>
+          <select id="chapter-select">
+            <option value="all">전체 단원</option>
+          </select>
+          <select id="type-select">
+            <option value="all">모든 유형</option>
+            <option value="ox">O/X</option>
+            <option value="short">단답형</option>
+            <option value="multiple">객관식</option>
+            <option value="essay">서술형</option>
+          </select>
+          <button class="btn-review" id="review-btn">오답 노트 (<span id="wrong-count">0</span>)</button>
+          <button class="btn-exam" id="exam-btn">📝 모의고사 시작</button>
+          <button id="reset-btn">연습 리셋</button>
+        </div>
+
+        <div class="header">
+          <span id="type-badge" class="badge">TYPE</span>
+          <div class="progress">진행: <span id="current-idx">0</span> / <span id="total-count">0</span></div>
+        </div>
+
+        <div id="question-area">데이터 로드 중...</div>
+
+        <div id="input-container">
+          <textarea id="user-answer" placeholder="답안을 입력하세요..."></textarea>
+        </div>
+        <div id="options-container"></div>
+
+        <div class="btn-group">
+          <button id="submit-btn" class="main-btn btn-submit">제출 (Enter)</button>
+          <button id="next-btn" class="main-btn btn-next">다음 문제 (Enter/Space)</button>
+          <button id="quit-btn" class="btn-quit">시험 포기</button>
+        </div>
+
+        <div id="feedback-area">
+          <div id="result-text"></div>
+          <hr />
+          <div id="answer-detail"></div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./js/quiz.js"></script>
+  </body>
+</html>

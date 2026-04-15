@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Library</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <p class="eyebrow">AI Lecture Quiz Pipeline</p>
+        <h1>저장된 강의 퀴즈를 바로 풀어보세요</h1>
+        <p class="hero-copy">
+          <code>docs/data/subjects/{subject}/problemset/{chapter}.json</code> 형태의 퀴즈 데이터를
+          subject 단위로 모아 학습할 수 있습니다.
+        </p>
+      </section>
+      <section>
+        <div id="subject-list" class="subject-grid"></div>
+      </section>
+    </main>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
