@@ -53,6 +53,23 @@ const ui = {
   quitBtn: document.getElementById("quit-btn"),
 };
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderMath(elements) {
+  if (!window.MathJax?.typesetPromise) {
+    return;
+  }
+
+  window.MathJax.typesetPromise(elements).catch(() => {});
+}
+
 function getSubjectParam() {
   const params = new URLSearchParams(window.location.search);
   return params.get("subject");
@@ -258,6 +275,7 @@ function renderChoiceButtons(question) {
     button.addEventListener("click", () => submitAnswer(option.value));
     ui.optCont.appendChild(button);
   });
+  renderMath([ui.optCont]);
 }
 
 function showQuestion() {
@@ -268,6 +286,7 @@ function showQuestion() {
 
   resetAnswerUi();
   ui.question.textContent = getQuestionStem(question);
+  renderMath([ui.question]);
   ui.badge.textContent = question.type.toUpperCase();
   ui.badge.style.background =
     { ox: "#e67e22", short: "#2ecc71", multiple: "#9b59b6", essay: "#34495e" }[
@@ -492,39 +511,38 @@ function submitAnswer(choiceValue = null) {
     (달성률: ${(result.scoreRatio * 100).toFixed(0)}% | 획득: ${result.earned.toFixed(1)}점)
   `;
 
-  let detailHtml = `<strong>[정답/해설]</strong><br>${question.a}<br><br><strong>[핵심 키워드 체크]</strong><br>`;
+  const explanationHtml = question.explanation
+    ? `<br><br><strong>[해설]</strong><br>${escapeHtml(question.explanation)}`
+    : "";
+  let detailHtml = `<strong>[정답]</strong><br>${escapeHtml(question.a)}${explanationHtml}<br><br><strong>[핵심 키워드 체크]</strong><br>`;
   if (Array.isArray(question.k)) {
     question.k.forEach((keyword) => {
       const matched = result.matchedKeywords.includes(keyword);
-      detailHtml += `<span class="keyword-tag ${matched ? "matched" : "missed"}">${keyword}</span>`;
+      detailHtml += `<span class="keyword-tag ${matched ? "matched" : "missed"}">${escapeHtml(keyword)}</span>`;
     });
   }
 
   if (question.type === "essay" && result.essayBreakdown) {
     const {
-      passReason,
       keywordScoreRatio,
-      answerScoreRatio,
       tokenSimilarityRatio,
       structureScoreRatio,
-      answerPassRatio,
-      keywordPassRatio,
+      weights,
+      passScoreRatio,
     } =
       result.essayBreakdown;
-    const reasonText = { answer: "정답 일치도 통과", keyword: "키워드 엄격 검사 통과", none: "통과 기준 미달" }[
-      passReason
-    ];
     detailHtml += `
       <div class="essay-breakdown">
         <strong>[서술형 채점 요소]</strong>
-        <span>1차 정답 일치도 ${(answerScoreRatio * 100).toFixed(0)}% / ${(answerPassRatio * 100).toFixed(0)}% 이상 통과</span>
-        <span>2차 키워드 엄격 검사 ${(keywordScoreRatio * 100).toFixed(0)}% / ${(keywordPassRatio * 100).toFixed(0)}% 이상인 키워드 1개면 통과</span>
-        <span>토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% / 글자 보조 ${(structureScoreRatio * 100).toFixed(0)}%</span>
-        <span>판정: ${reasonText}</span>
+        <span>키워드 유사도 ${(keywordScoreRatio * 100).toFixed(0)}% × ${weights.keyword}</span>
+        <span>토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% × ${weights.token}</span>
+        <span>글자 단순 유사도 ${(structureScoreRatio * 100).toFixed(0)}% × ${weights.structure}</span>
+        <span>총점 ${(passScoreRatio * 100).toFixed(0)}% 이상 정답 처리</span>
       </div>
     `;
   }
   ui.answerDetail.innerHTML = detailHtml;
+  renderMath([ui.answerDetail]);
 
   ui.submitBtn.style.display = "none";
   ui.nextBtn.style.display = "inline-flex";
@@ -619,4 +637,8 @@ init().catch((error) => {
   ui.optCont.style.display = "none";
   ui.submitBtn.style.display = "none";
   ui.nextBtn.style.display = "none";
+});
+
+window.addEventListener("load", () => {
+  renderMath([ui.question, ui.optCont, ui.answerDetail]);
 });

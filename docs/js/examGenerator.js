@@ -134,8 +134,8 @@ const SYNONYM_MAP = new Map(
   )
 );
 
-const ESSAY_ANSWER_PASS_RATIO = 0.4;
-const ESSAY_KEYWORD_PASS_RATIO = 0.7;
+const ESSAY_PASS_SCORE_RATIO = 0.65;
+const ESSAY_WEIGHTS = { keyword: 0.6, token: 0.3, structure: 0.1 };
 const KOREAN_SUFFIXES = [
   "으로부터",
   "로부터",
@@ -237,29 +237,17 @@ function getCharacterOverlapRatio(answer, input) {
   return targetChars.length ? matchedCharCount / targetChars.length : 0;
 }
 
-function getEssayAnswerSimilarity(answer, input, inputTokens) {
-  const answerTokens = getTokenSet(answer);
-  const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
-  const structureScoreRatio = getCharacterOverlapRatio(answer, input);
-
-  return {
-    answerScoreRatio: tokenSimilarityRatio * 0.7 + structureScoreRatio * 0.3,
-    tokenSimilarityRatio,
-    structureScoreRatio,
-  };
-}
-
 function normalizeCompact(value) {
   return normalizeText(value).normalize("NFKC").replace(/\s+/g, "");
 }
 
-function getStrictKeywordMatchRatio(keyword, inputTokens, inputCompact) {
+function getKeywordSimilarityRatio(keyword, inputTokens, inputCompact) {
   const keywordCompact = normalizeCompact(keyword);
   if (keywordCompact && inputCompact.includes(keywordCompact)) {
     return 1;
   }
 
-  const keywordTokens = tokenizeText(keyword, { useSynonyms: false });
+  const keywordTokens = tokenizeText(keyword, { useSynonyms: true });
   if (!keywordTokens.length) {
     return 0;
   }
@@ -272,40 +260,34 @@ function gradeEssay(question, userAnswer) {
   const input = normalizeText(userAnswer);
   const keywords = Array.isArray(question.k) ? question.k : [];
   const matchedKeywords = [];
-  const exactInputTokens = getTokenSet(input, { useSynonyms: false });
   const semanticInputTokens = getTokenSet(input, { useSynonyms: true });
   const inputCompact = normalizeCompact(input);
-  const answerMatch = getEssayAnswerSimilarity(question.a, input, semanticInputTokens);
-  let keywordScoreRatio = 0;
+  const answerTokens = getTokenSet(question.a, { useSynonyms: true });
+  const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, semanticInputTokens);
+  const structureScoreRatio = getCharacterOverlapRatio(question.a, input);
 
-  if (answerMatch.answerScoreRatio < ESSAY_ANSWER_PASS_RATIO) {
-    keywords.forEach((keyword) => {
-      const keywordMatchRatio = getStrictKeywordMatchRatio(keyword, exactInputTokens, inputCompact);
-      keywordScoreRatio = Math.max(keywordScoreRatio, keywordMatchRatio);
-      if (keywordMatchRatio >= ESSAY_KEYWORD_PASS_RATIO) {
-        matchedKeywords.push(keyword);
-      }
-    });
-  }
+  keywords.forEach((keyword) => {
+    if (getKeywordSimilarityRatio(keyword, semanticInputTokens, inputCompact) >= 0.7) {
+      matchedKeywords.push(keyword);
+    }
+  });
 
-  const passedByAnswer = answerMatch.answerScoreRatio >= ESSAY_ANSWER_PASS_RATIO;
-  const passedByKeyword = matchedKeywords.length > 0;
-  const scoreRatio = passedByAnswer
-    ? answerMatch.answerScoreRatio
-    : Math.max(answerMatch.answerScoreRatio, keywordScoreRatio);
+  const keywordScoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
+  const scoreRatio =
+    keywordScoreRatio * ESSAY_WEIGHTS.keyword +
+    tokenSimilarityRatio * ESSAY_WEIGHTS.token +
+    structureScoreRatio * ESSAY_WEIGHTS.structure;
 
   return {
-    correct: passedByAnswer || passedByKeyword,
+    correct: scoreRatio >= ESSAY_PASS_SCORE_RATIO,
     scoreRatio,
     matchedKeywords,
     essayBreakdown: {
-      passReason: passedByAnswer ? "answer" : passedByKeyword ? "keyword" : "none",
       keywordScoreRatio,
-      answerScoreRatio: answerMatch.answerScoreRatio,
-      tokenSimilarityRatio: answerMatch.tokenSimilarityRatio,
-      structureScoreRatio: answerMatch.structureScoreRatio,
-      answerPassRatio: ESSAY_ANSWER_PASS_RATIO,
-      keywordPassRatio: ESSAY_KEYWORD_PASS_RATIO,
+      tokenSimilarityRatio,
+      structureScoreRatio,
+      weights: ESSAY_WEIGHTS,
+      passScoreRatio: ESSAY_PASS_SCORE_RATIO,
     },
   };
 }
