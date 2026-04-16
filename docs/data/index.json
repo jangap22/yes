@@ -61,6 +61,11 @@
           "chapter": "04 Devops"
         },
         {
+          "file": "problemset/06_cost_estimation.json",
+          "questionSet": "problemset",
+          "chapter": "06 Cost Estimation"
+        },
+        {
           "file": "problemset/07_requirements.json",
           "questionSet": "problemset",
           "chapter": "07 Requirements"
