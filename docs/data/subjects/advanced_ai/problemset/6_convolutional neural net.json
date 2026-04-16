@@ -1,0 +1,1251 @@
+[
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Gray scale image(그레이 스케일 이미지)에서 픽셀 값은 색상의 밝기(intensity)를 나타낸다.",
+    "a": "O",
+    "k": [
+      "픽셀",
+      "밝기"
+    ],
+    "explanation": "강의 텍스트에 따르면 Gray scale image에서 픽셀 값은 intensity(밝기)를 나타낸다고 명시되어 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "색상을 hue, saturation, value로 구성하는 이미지 모델은?",
+    "a": "HSV image",
+    "k": [
+      "HSV"
+    ],
+    "explanation": "강의 텍스트에서 HSV image는 hue, saturation, value를 사용한다고 기술되어 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에 사용되는 스무딩 필터 종류 중 윈도우 내의 median 값을 선택하는 필터는?",
+    "a": "Median filter",
+    "k": [
+      "메디안 필터"
+    ],
+    "explanation": "강의 텍스트에서 Median filter는 윈도우 내의 median 값을 선택한다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Convolutional filter(컨볼루션 필터)와 Correlation filter(상관 필터)는 항상 동일한 결과를 낸다.",
+    "a": "X",
+    "k": [
+      "컨볼루션 필터",
+      "상관 필터"
+    ],
+    "explanation": "일반적으로 Convolutional filter는 Correlation filter를 180도 회전시킨 것이며, 대칭인 경우에만 동일합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 공간적 정보를 요약하여 줄이는 레이어는 무엇인가?",
+    "a": "Pooling layer",
+    "k": [
+      "풀링 레이어"
+    ],
+    "explanation": "강의 텍스트에서 Pooling layer는 특징을 요약하고 차원을 줄이는 레이어입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Sobel filter(소벨 필터)는 Prewitt filter와 유사하지만 중앙 픽셀의 가중치가 두 배이다.",
+    "a": "O",
+    "k": [
+      "소벨 필터",
+      "가중치"
+    ],
+    "explanation": "강의 텍스트에서 Sobel filter는 Prewitt filter와 유사하나 중앙 픽셀의 가중치가 두 배(doubled)라고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN의 모티브인 'Parameter sharing'에서 필터의 모든 요소는 어디에 적용되는가?",
+    "a": "all positions",
+    "k": [
+      "파라미터 공유"
+    ],
+    "explanation": "강의 텍스트에서 Parameter sharing은 필터의 요소들이 입력의 all positions(모든 위치)에 적용됨을 의미합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "이미지 디지털화(digitalization) 과정에서 Sampling(샘플링)은 전체 평면에서 일부 영역을 추출하는 과정이다.",
+    "a": "O",
+    "k": [
+      "샘플링",
+      "디지털화"
+    ],
+    "explanation": "강의 텍스트에 따르면 Sampling은 전체 평면(entire plane)에서 일부 영역을 추출하는 과정입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지의 엣지를 2차 미분으로 강조하는 필터는?",
+    "a": "Laplacian filter",
+    "k": [
+      "라플라시안 필터"
+    ],
+    "explanation": "강의 텍스트에서 Laplacian filter는 2차 미분을 사용하여 엣지를 강조합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 필터가 입력 공간을 바라보는 영역을 지칭하는 용어는?",
+    "a": "Receptive field",
+    "k": [
+      "수용 영역"
+    ],
+    "explanation": "강의 텍스트에서 Receptive field는 CNN의 특징이 바라보는 입력 공간의 영역으로 정의됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 RGB 이미지의 색상은 r, g, b값의 범위를 몇으로 하는가?",
+    "a": "255",
+    "k": [
+      "RGB"
+    ],
+    "explanation": "r, g, b값은 각각 0에서 255 사이입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Mean filter는 윈도우 내 주변 픽셀들의 평균을 계산한다.",
+    "a": "O",
+    "k": [
+      "평균 필터"
+    ],
+    "explanation": "Mean filter(Box filter)는 주변 픽셀들의 평균을 계산한다고 강의 텍스트에 명시되어 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 로컬 입력을 활용하기 위한 동기인 'Sparse interactions'에서 필터의 크기는?",
+    "a": "smaller",
+    "k": [
+      "희소 상호작용"
+    ],
+    "explanation": "강의 텍스트에서 Sparse interactions는 smaller-sized(더 작은) 필터를 사용하여 정보를 활용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Gaussian filter(가우시안 필터)는 주변 픽셀들의 가중 평균을 계산한다.",
+    "a": "O",
+    "k": [
+      "가우시안 필터"
+    ],
+    "explanation": "강의 텍스트에 따르면 가우시안 필터는 주변 픽셀들의 weighted average(가중 평균)를 사용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "CNN의 Convolutional layer는 입력에 필터 세트를 적용하여 feature maps(특징 맵)를 생성한다.",
+    "a": "O",
+    "k": [
+      "컨볼루션 레이어",
+      "특징 맵"
+    ],
+    "explanation": "강의 텍스트는 Convolutional layer가 필터 세트를 적용하여 특징을 강조하는 feature maps를 생성한다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "다음 수식은 무엇을 정의하는가? g(i, j) = Σ f(i+k, j+l)h(k,l)",
+    "a": "Correlation filter",
+    "k": [
+      "상관 필터"
+    ],
+    "explanation": "강의 텍스트에서 Correlation filter는 신호 간의 유사성을 측정하며 주어진 공식 g(i, j) = Σ f(i+k, j+l)h(k,l)로 정의됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지를 구성할 때 Hue, Saturation과 함께 사용되는 값은?",
+    "a": "Value",
+    "k": [
+      "값"
+    ],
+    "explanation": "강의 텍스트에서 HSV 이미지 모델은 Hue, Saturation, Value로 구성됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN의 모티브 중 입력의 변화가 출력의 비례적인 변화를 이끄는 성질은?",
+    "a": "Equivariant representations",
+    "k": [
+      "등변 표현"
+    ],
+    "explanation": "강의 텍스트에서 입력의 변화(input changes)가 출력의 비례적인 변화(proportional output changes)를 만드는 것을 Equivariant representations라고 합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "Gaussian filter와 유사하나 엣지 보존 기능을 가진 필터는?",
+    "a": "Bilateral filter",
+    "k": [
+      "양방향 필터"
+    ],
+    "explanation": "강의 텍스트에서 Bilateral filter는 스무딩을 수행하면서 동시에 엣지를 보존(preserves edges)하는 필터로 설명됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지를 디지털화하는 두 가지 주요 단계 중, 전체 평면에서 일부 영역을 추출하는 과정을 무엇이라 하는가?",
+    "a": "샘플링",
+    "k": [
+      "샘플링"
+    ],
+    "explanation": "이미지 디지털화 과정에서 평면으로부터 영역을 추출하는 것은 샘플링(Sampling)입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "Sobel 필터가 중앙 픽셀에 곱하는 가중치는?",
+    "a": "2",
+    "k": [
+      "소벨 필터"
+    ],
+    "explanation": "강의 텍스트에서 Sobel filter는 중앙 픽셀의 가중치가 두 배(doubled)라고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 학습하는 대상인 가중치는 어디에 위치하는가?",
+    "a": "convolutional layer",
+    "k": [
+      "컨볼루션 레이어"
+    ],
+    "explanation": "강의 텍스트에서 학습은 convolutional layer 필터의 가중치를 최적화하는 것입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의 텍스트에서 언급한 엣지 검출 필터 중 대각선을 탐지하는 것은?",
+    "a": "Roberts filter",
+    "k": [
+      "로버츠 필터"
+    ],
+    "explanation": "강의 텍스트에서 Roberts filter는 Diagonal edge(대각선 엣지) 검출에 사용된다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 선형 필터의 성질 중 h(f1+f2) = h(f1)+h(f2)를 만족하는 것은?",
+    "a": "중첩",
+    "k": [
+      "중첩"
+    ],
+    "explanation": "이는 선형 필터의 중첩(Superposition) 성질입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 Pooling layer의 종류인 Max pooling은 무엇을 선택하는가?",
+    "a": "max value",
+    "k": [
+      "맥스 풀링"
+    ],
+    "explanation": "강의 텍스트에서 Max pooling은 max value를 선택합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "입력 신호에 선형 함수를 적용하는 필터의 명칭은?",
+    "a": "Linear filter",
+    "k": [
+      "선형 필터"
+    ],
+    "explanation": "강의 텍스트에서 Linear filter는 입력 신호에 선형 함수(linear function)를 적용한다고 명시되어 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "평균 필터(Mean filter)의 또 다른 명칭은?",
+    "a": "Box filter",
+    "k": [
+      "박스 필터"
+    ],
+    "explanation": "강의 텍스트에서 Mean filter는 Box filter로도 불리며 주변 픽셀의 평균을 계산합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 디지털화에서 영역의 값을 설정하는 평균 색상 강도 등과 관련된 과정은?",
+    "a": "양자화",
+    "k": [
+      "양자화"
+    ],
+    "explanation": "영역의 값을 정하는 과정은 양자화(Quantizing)입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 층에서 연산 시 공간적 크기를 조절하기 위한 패딩(Padding) 유형 세 가지를 쓰시오.",
+    "a": "full, same, valid",
+    "k": [
+      "패딩"
+    ],
+    "explanation": "텍스트에서 명시한 패딩 유형은 full, same, valid 입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 컨볼루션 필터는 상관 필터를 몇 도 회전시킨 것과 동일한가?",
+    "a": "180",
+    "k": [
+      "회전"
+    ],
+    "explanation": "강의 텍스트에서 Convolutional filter는 Correlation filter를 180도 회전(rotated by 180 degrees)시킨 것이라고 명시되어 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 색상의 순도를 나타내는 HSV의 요소는?",
+    "a": "Saturation",
+    "k": [
+      "채도"
+    ],
+    "explanation": "강의 텍스트에서 Saturation은 intensity/purity(채도)를 나타낸다고 정의합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 필터의 가중치를 업데이트하여 모델을 최적화하는 과정을 무엇이라 하는가?",
+    "a": "Learning",
+    "k": [
+      "학습"
+    ],
+    "explanation": "강의 텍스트의 'Learning' 섹션에서 컨볼루션 레이어 필터의 가중치를 최적화하는 것을 Learning이라고 합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN의 풀링 레이어에서 평균값을 계산하는 기법은?",
+    "a": "Average pooling",
+    "k": [
+      "에버리지 풀링"
+    ],
+    "explanation": "강의 텍스트에서 Average pooling은 평균값을 계산(Computes average value)한다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "디지털 이미지에서 픽셀 값으로 표현되는 함수 f: (x, y) -> intensity의 대상은?",
+    "a": "Gray scale image",
+    "k": [
+      "그레이 스케일 이미지"
+    ],
+    "explanation": "강의 텍스트에서 f: (x, y) -> intensity는 Gray scale image를 나타내는 함수로 정의됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 가장 중요한 연산 중 하나인 특징 맵을 만드는 층은?",
+    "a": "컨볼루션 층",
+    "k": [
+      "컨볼루션"
+    ],
+    "explanation": "컨볼루션 층(Convolutional layer)은 필터를 적용하여 특징 맵을 생성합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 학습이란 필터의 무엇을 최적화하는 과정인가?",
+    "a": "가중치",
+    "k": [
+      "가중치"
+    ],
+    "explanation": "CNN 학습은 필터의 가중치(Weights) 최적화입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의 텍스트에 언급된 필터 타입 중 Roberts, Prewitt, Sobel이 속하는 분류는?",
+    "a": "Derivative filters",
+    "k": [
+      "미분 필터"
+    ],
+    "explanation": "강의 텍스트에서 Roberts, Prewitt, Sobel은 Derivative filters(Edge Detectors)로 분류됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 입력 데이터의 일부를 선택하여 특징을 추출하는 하이퍼파라미터는?",
+    "a": "filter size",
+    "k": [
+      "필터 크기"
+    ],
+    "explanation": "강의 텍스트에서 filter size는 CNN의 하이퍼파라미터 중 하나입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의에서 'Intensity function on 2d-screen'으로 표현한 대상은?",
+    "a": "Image",
+    "k": [
+      "이미지"
+    ],
+    "explanation": "강의 텍스트의 'Image Representation' 섹션에서 이미지는 2d-screen 상의 Intensity function으로 표현됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 미분 필터의 목적인 엣지 검출은 무엇을 강조하기 위함인가?",
+    "a": "edges",
+    "k": [
+      "엣지"
+    ],
+    "explanation": "강의 텍스트에서 Derivative filters(Edge Detectors)는 엣지를 검출하기 위한 용도로 사용됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 필터 연산 시 이동 간격을 무엇이라 하는가?",
+    "a": "스트라이드",
+    "k": [
+      "스트라이드"
+    ],
+    "explanation": "스트라이드(Stride)는 필터의 이동 간격입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의에서 CNN 아키텍처의 모티브로 언급된 'Equivariant representations'는 입력 변화가 출력의 무엇을 만드는가?",
+    "a": "proportional",
+    "k": [
+      "비례"
+    ],
+    "explanation": "강의 텍스트에서 Equivariant representations는 입력의 변화가 출력의 proportional(비례적인) 변화를 만든다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 함수 f: (x, y) -> intensity에서 intensity의 범위는?",
+    "a": "255",
+    "k": [
+      "밝기"
+    ],
+    "explanation": "강의 텍스트에서 Gray scale image의 intensity는 [0, 255] 범위를 가집니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의 텍스트에 언급된 필터 타입 중 Mean, Gaussian, Median, Bilateral이 속하는 분류는?",
+    "a": "Smoothing Filters",
+    "k": [
+      "스무딩 필터"
+    ],
+    "explanation": "강의 텍스트에서 Mean, Gaussian, Median, Bilateral filter는 Smoothing Filters로 분류됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 레이어에서 특징 추출을 담당하는 핵심 요소는?",
+    "a": "필터",
+    "k": [
+      "필터"
+    ],
+    "explanation": "필터는 컨볼루션 레이어에서 특징을 추출합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 픽셀 값의 변화를 감지하는 필터는 미분 필터와 무엇인가? (에지 디텍터)",
+    "a": "Edge Detectors",
+    "k": [
+      "엣지 검출기"
+    ],
+    "explanation": "강의 텍스트에서 Derivative filters를 Edge Detectors라고도 합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "강의 텍스트에 따르면 CNN의 모티브인 'Sparse interactions'의 반대말은 무엇인가? (Dense가 아닌 일반적인 설명 기반)",
+    "a": "local input",
+    "k": [
+      "로컬 입력"
+    ],
+    "explanation": "강의 텍스트에서 Sparse interactions는 local input information을 활용한다고 설명합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN의 주요 모티브 세 가지(Sparse interactions, Parameter sharing, Equivariant representations)에 대해 설명하시오.",
+    "a": "CNN의 주요 모티브는 세 가지이다. 첫째, Sparse interactions는 작은 크기의 필터를 사용하여 로컬 입력 정보를 활용한다. 둘째, Parameter sharing은 필터의 요소들이 입력의 모든 위치에 공통으로 적용되게 한다. 셋째, Equivariant representations는 입력의 변화가 출력의 비례적인 변화를 이끄는 성질이다.",
+    "k": [
+      "희소 상호작용",
+      "파라미터 공유",
+      "등변 표현",
+      "로컬 입력"
+    ],
+    "explanation": "강의 텍스트의 Motivations 섹션에서 명시된 세 가지 모티브를 각각의 정의와 특징을 중심으로 기술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "이미지 디지털화 과정인 Sampling과 Quantizing에 대해 서술하시오.",
+    "a": "이미지를 디지털화하는 과정은 크게 두 단계로 이루어진다. Sampling은 전체 평면에서 일부 영역을 추출하는 과정이다. Quantizing은 추출된 영역에 대해 색상 강도의 평균 등 특정 값을 설정하는 과정이다.",
+    "k": [
+      "디지털화",
+      "샘플링",
+      "양자화",
+      "픽셀"
+    ],
+    "explanation": "강의 텍스트의 Digitalization 섹션에 명시된 두 단계의 정의를 기반으로 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN 레이어에서의 학습(Learning)과 Receptive field(수용 영역)의 관계에 대해 설명하시오.",
+    "a": "CNN에서 학습은 컨볼루션 레이어 필터의 가중치를 최적화하는 과정이다. Receptive field는 특징이 바라보는 입력 공간의 영역을 의미한다. 네트워크가 깊어질수록 Receptive field가 커지며, 이를 통해 더 추상적인 특징을 포착할 수 있게 된다.",
+    "k": [
+      "학습",
+      "수용 영역",
+      "가중치",
+      "계층"
+    ],
+    "explanation": "강의 텍스트의 Key Concepts 섹션에서 정의된 학습과 Receptive field의 개념 및 그 관계를 서술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "선형 필터(Linear filter)의 성질인 Scaling과 Superposition에 대해 설명하시오.",
+    "a": "선형 필터는 입력 신호에 선형 함수를 적용하는 필터이다. 첫째, Scaling은 출력의 크기가 입력에 비례함을 의미하며 a(h ∘ f) = h ∘ af로 표현된다. 둘째, Superposition은 합의 필터가 각 필터 결과의 합과 같다는 성질로 h ∘ (f1 + f2) = h ∘ f1 + h ∘ f2로 표현된다.",
+    "k": [
+      "선형 필터",
+      "스케일링",
+      "중첩",
+      "입력 신호"
+    ],
+    "explanation": "강의 텍스트의 Linear Filter 섹션에서 언급된 두 가지 수학적 성질과 그 정의를 수식과 함께 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "그레이 스케일(Gray scale) 이미지에서 픽셀 값은 강도(Intensity)를 나타낸다.",
+    "a": "O",
+    "k": [
+      "픽셀",
+      "강도"
+    ],
+    "explanation": "강의 텍스트에 따르면 그레이 스케일 이미지는 픽셀 값이 강도를 나타냅니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN의 특징 중, 하나의 필터를 이미지 전체에 적용하는 것은?",
+    "a": "파라미터 공유",
+    "k": [
+      "파라미터",
+      "공유"
+    ],
+    "explanation": "파라미터 공유(Parameter sharing)는 같은 필터를 전역적으로 적용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "다음 중 비선형 필터(Non-linear filter)인 것은?\n1. 평균 필터\n2. 가우시안 필터\n3. 미디언 필터\n4. 라플라시안 필터",
+    "a": "3",
+    "k": [
+      "미디언",
+      "필터"
+    ],
+    "explanation": "미디언 필터는 윈도우 내의 중앙값을 선택하는 비선형 필터입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "상관관계 필터(Correlation filter)와 컨볼루션 필터(Convolutional filter)는 동일한 계산 방식이다.",
+    "a": "X",
+    "k": [
+      "상관관계",
+      "컨볼루션"
+    ],
+    "explanation": "컨볼루션 필터는 상관관계 필터를 180도 회전시킨 것이며, 대칭인 경우에만 동일합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "CNN의 구성 요소 중 공간적 크기를 줄이는 역할을 하는 것은 무엇인가?\n1. 컨볼루션 층\n2. 풀링 층\n3. 하이퍼 파라미터\n4. 활성화 함수",
+    "a": "2",
+    "k": [
+      "풀링",
+      "공간"
+    ],
+    "explanation": "풀링 층(Pooling layer)은 입력 데이터의 공간적 차원을 줄이는 역할을 합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "Sobel 필터는 중심 픽셀의 가중치가 Prewitt 필터와 동일하다.",
+    "a": "X",
+    "k": [
+      "Sobel",
+      "Prewitt"
+    ],
+    "explanation": "Sobel 필터는 Prewitt 필터와 유사하지만 중심 픽셀의 가중치가 두 배로 설정됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "HSV 색상 모델에서 Hue(색상)의 범위는 0에서 360도이다.",
+    "a": "O",
+    "k": [
+      "HSV",
+      "Hue"
+    ],
+    "explanation": "강의 텍스트에 따르면 HSV 모델의 Hue는 0~360도 범위를 가집니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 층에서 입력 공간의 특정 영역을 가리키는 용어는?",
+    "a": "수용 영역",
+    "k": [
+      "수용",
+      "영역"
+    ],
+    "explanation": "수용 영역(Receptive field)은 네트워크가 주목하는 영역입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "디지털화(Digitalization) 과정에는 샘플링(Sampling)과 양자화(Quantizing)가 포함된다.",
+    "a": "O",
+    "k": [
+      "디지털화",
+      "샘플링",
+      "양자화"
+    ],
+    "explanation": "디지털화는 샘플링과 양자화라는 두 단계로 구성됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "라플라시안 필터(Laplacian filter)는 1차 미분을 사용하여 엣지를 강조한다.",
+    "a": "X",
+    "k": [
+      "라플라시안",
+      "미분"
+    ],
+    "explanation": "라플라시안 필터는 2차 미분을 사용하여 엣지를 강조합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "CNN의 학습 과정에서 최적화되는 대상은 무엇인가?\n1. 입력 데이터\n2. 필터의 가중치\n3. 이미지의 좌표\n4. 풀링의 종류",
+    "a": "2",
+    "k": [
+      "학습",
+      "가중치"
+    ],
+    "explanation": "CNN의 학습은 컨볼루션 층에 포함된 필터의 가중치를 최적화하는 과정입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "빌라테럴 필터(Bilateral filter)는 엣지를 보존하면서 스무딩(Smoothing)을 수행한다.",
+    "a": "O",
+    "k": [
+      "빌라테럴",
+      "스무딩"
+    ],
+    "explanation": "빌라테럴 필터는 엣지를 보존하는 동시에 노이즈를 부드럽게 만드는 효과가 있습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 로컬 입력을 사용하기 위해 고안된 구조적 특징은?",
+    "a": "희소 상호작용",
+    "k": [
+      "희소",
+      "상호작용"
+    ],
+    "explanation": "희소 상호작용(Sparse interactions)은 로컬 정보를 다룹니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "ox",
+    "q": "이미지를 함수로 표현할 때, 그레이 스케일 이미지는 2차원 평면에서 강도값으로 매핑된다.",
+    "a": "O",
+    "k": [
+      "이미지",
+      "강도"
+    ],
+    "explanation": "그레이 스케일 이미지는 (x, y) 좌표를 강도값으로 매핑하는 함수로 표현됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "HSV 모델에서 'Value'가 의미하는 것은 무엇인가?\n1. 색상\n2. 채도\n3. 밝기\n4. 투명도",
+    "a": "3",
+    "k": [
+      "Value",
+      "밝기"
+    ],
+    "explanation": "HSV 모델에서 V(Value)는 밝기(Brightness)를 나타냅니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "다음 중 엣지 검출을 위한 미분 필터에 해당하지 않는 것은?\n1. Sobel 필터\n2. Roberts 필터\n3. Prewitt 필터\n4. Mean 필터",
+    "a": "4",
+    "k": [
+      "필터",
+      "미분"
+    ],
+    "explanation": "Mean 필터는 스무딩 필터이며, 엣지 검출을 위한 미분 필터가 아닙니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "이미지를 함수로 표현할 때, RGB 이미지의 함수 출력은 무엇인가?\n1. 강도\n2. (x, y) 좌표\n3. (r, g, b) 값\n4. 픽셀 위치",
+    "a": "3",
+    "k": [
+      "RGB",
+      "함수"
+    ],
+    "explanation": "RGB 이미지는 (x, y) 좌표를 (r, g, b)의 세 가지 값으로 매핑하는 함수입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "다음 중 컨볼루션 층의 하이퍼 파라미터(Hyper-parameters)에 해당하지 않는 것은?\n1. 필터 크기\n2. 스트라이드 크기\n3. 패딩 유형\n4. 학습률",
+    "a": "4",
+    "k": [
+      "하이퍼",
+      "파라미터"
+    ],
+    "explanation": "강의 텍스트에 언급된 하이퍼 파라미터는 필터 크기, 스트라이드 크기, 패딩 유형입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "CNN에서 특징 맵(Feature map)을 생성하는 층은 무엇인가?\n1. 컨볼루션 층\n2. 풀링 층\n3. 출력 층\n4. 입력 층",
+    "a": "1",
+    "k": [
+      "컨볼루션",
+      "특징",
+      "맵"
+    ],
+    "explanation": "컨볼루션 층은 필터를 적용하여 입력 데이터에서 중요한 특징을 강조하는 특징 맵을 생성합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리 필터 중 대각선 엣지 검출을 위한 필터 이름은?",
+    "a": "로버츠 필터",
+    "k": [
+      "로버츠",
+      "필터"
+    ],
+    "explanation": "로버츠 필터는 대각선 엣지 검출용입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "선형 필터의 성질 중 Magnitude(크기)가 출력에 비례하는 것은?",
+    "a": "스케일링",
+    "k": [
+      "스케일링"
+    ],
+    "explanation": "스케일링 성질은 출력 크기가 입력 크기에 비례함을 뜻합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN의 출력 변화가 입력 변화에 비례하는 성질은 무엇인가?",
+    "a": "등변 표현",
+    "k": [
+      "등변",
+      "표현"
+    ],
+    "explanation": "등변 표현(Equivariant representations)은 입력 변화에 비례한 출력 변화를 가집니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "가우시안 필터의 정의로 옳은 것은?\n1. 주변 픽셀의 단순 평균\n2. 주변 픽셀의 가중 평균\n3. 중앙값 선택\n4. 엣지 강조",
+    "a": "2",
+    "k": [
+      "가우시안",
+      "평균"
+    ],
+    "explanation": "가우시안 필터는 주변 픽셀의 가중 평균을 사용하여 이미지를 스무딩합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "multiple",
+    "q": "이미지의 2차원 공간을 표현할 때 사용하는 것은?\n1. 강도 함수\n2. 픽셀값\n3. 벡터\n4. 필터",
+    "a": "1",
+    "k": [
+      "이미지",
+      "강도",
+      "함수"
+    ],
+    "explanation": "이미지는 2차원 스크린 상에서 강도 함수로 표현됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "HSV에서 채도를 뜻하는 영어 단어는?",
+    "a": "Saturation",
+    "k": [
+      "Saturation"
+    ],
+    "explanation": "H(Hue), S(Saturation), V(Value)에서 S는 Saturation입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "입력 신호의 선형 함수를 적용하는 것을 무엇이라 하는가?",
+    "a": "선형 필터",
+    "k": [
+      "선형",
+      "필터"
+    ],
+    "explanation": "선형 필터(Linear filter)는 입력 신호에 대해 선형 함수를 적용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN에서 풀링 층의 종류 중 최댓값을 선택하는 방식은?",
+    "a": "맥스 풀링",
+    "k": [
+      "맥스",
+      "풀링"
+    ],
+    "explanation": "맥스 풀링(Max pooling)은 윈도우 내에서 가장 큰 값을 선택합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "주변 픽셀의 단순 평균을 계산하는 필터를 무엇이라 하는가?",
+    "a": "평균 필터",
+    "k": [
+      "평균",
+      "필터"
+    ],
+    "explanation": "평균 필터(Mean filter)는 주변 픽셀 값의 평균을 계산하여 스무딩합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지의 픽셀 값 변화가 급격한 곳을 찾기 위한 필터 종류를 무엇이라 하는가?",
+    "a": "도함수 필터",
+    "k": [
+      "도함수",
+      "필터"
+    ],
+    "explanation": "도함수 필터(Derivative filters) 또는 엣지 검출기(Edge detectors)는 급격한 변화를 감지합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 구조에서 계층적으로 특징을 학습하는 것을 무엇이라 하는가?",
+    "a": "공간적 위계",
+    "k": [
+      "공간",
+      "위계"
+    ],
+    "explanation": "CNN은 특징의 공간적 위계(Spatial hierarchies)를 자동으로 학습합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "Sobel 필터와 Prewitt 필터의 공통점은 무엇을 위해 사용되는가?",
+    "a": "엣지 검출",
+    "k": [
+      "엣지",
+      "검출"
+    ],
+    "explanation": "두 필터 모두 엣지 검출(Edge detection)을 위해 사용됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "상관관계 필터를 180도 회전하면 무엇과 동일해지는가?",
+    "a": "컨볼루션 필터",
+    "k": [
+      "컨볼루션",
+      "필터"
+    ],
+    "explanation": "컨볼루션 필터는 상관관계 필터를 180도 회전시킨 것입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN이 비주얼 이미지 분석에 가장 많이 사용되는 이유는 무엇인가?",
+    "a": "모델",
+    "k": [
+      "모델"
+    ],
+    "explanation": "CNN은 시각적 분석을 위한 가장 많이 사용되는 모델입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지를 표현하는 intensity(강도)의 범위는 0에서 몇인가?",
+    "a": "255",
+    "k": [
+      "강도"
+    ],
+    "explanation": "강도값은 0에서 255 사이의 범위를 가집니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 디지털화에서 평면 영역을 추출할 때의 평균적인 가로와 세로 좌표 크기를 2로 나눈 값은 얼마인가?",
+    "a": "1",
+    "k": [
+      "좌표"
+    ],
+    "explanation": "강의 텍스트에 나타난 샘플링 영역 예시가 2x2와 같은 형태라면, 각 차원을 2로 나눈 결과는 1이 됩니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "CNN 레이어 중 특징의 spatial(공간) 차원을 줄이는 층은?",
+    "a": "풀링 층",
+    "k": [
+      "풀링"
+    ],
+    "explanation": "풀링 층(Pooling layer)은 공간 차원을 줄입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 특정 방향의 엣지를 강조할 때 사용하는 미분 필터의 차수는?",
+    "a": "2",
+    "k": [
+      "라플라시안"
+    ],
+    "explanation": "라플라시안 필터는 2차 미분을 사용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 데이터를 디지털로 변환할 때 픽셀 값으로 강도를 표현하는 이미지 방식은?",
+    "a": "그레이 스케일",
+    "k": [
+      "그레이",
+      "스케일"
+    ],
+    "explanation": "그레이 스케일(Gray scale) 이미지는 픽셀 값으로 강도를 표현합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "이미지 처리에서 엣지를 보존하며 스무딩을 수행하는 필터는?",
+    "a": "빌라테럴 필터",
+    "k": [
+      "빌라테럴",
+      "필터"
+    ],
+    "explanation": "빌라테럴 필터는 엣지 보존형 스무딩 필터입니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "라플라시안 필터는 몇 차 미분을 활용하는가?",
+    "a": "2",
+    "k": [
+      "미분"
+    ],
+    "explanation": "라플라시안 필터는 2차 미분을 활용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "Prewitt 필터는 몇 번의 축 계산을 거치는가?",
+    "a": "3",
+    "k": [
+      "Prewitt"
+    ],
+    "explanation": "텍스트에 따르면 Prewitt 필터는 x와 y축 계산을 3번 수행합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "선형 필터의 정의로, 입력 신호에 무엇을 적용하는 것인가?",
+    "a": "선형 함수",
+    "k": [
+      "선형",
+      "함수"
+    ],
+    "explanation": "선형 필터는 선형 함수를 적용합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "short",
+    "q": "Sobel 필터는 중심 픽셀의 가중치를 몇 배로 하는가?",
+    "a": "2",
+    "k": [
+      "Sobel"
+    ],
+    "explanation": "소벨 필터는 중심 픽셀의 가중치를 두 배로 합니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN(Convolutional Neural Network)에서 사용하는 주요 층인 컨볼루션 층과 풀링 층의 역할과 차이를 설명하시오.",
+    "a": "컨볼루션 층은 입력에 필터를 적용하여 특징 맵을 생성함으로써 중요한 특징을 강조하는 역할을 합니다. 반면 풀링 층은 공간적 차원을 줄이고 특징을 요약하는 역할을 수행합니다. 차이점은 컨볼루션 층이 특징 추출에 집중하는 반면 풀링 층은 차원 감소를 통한 연산 효율화에 집중한다는 점입니다.",
+    "k": [
+      "컨볼루션",
+      "풀링",
+      "특징",
+      "차원",
+      "연산"
+    ],
+    "explanation": "컨볼루션 층의 특징 추출 기능과 풀링 층의 차원 축소/요약 기능을 비교하여 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "이미지 디지털화 과정에서 샘플링과 양자화가 무엇을 의미하는지 설명하고, 왜 필요한지 서술하시오.",
+    "a": "샘플링은 연속적인 장면에서 일정 영역만을 추출하는 과정이며, 양자화는 그 추출된 영역에 대해 평균 색상 강도와 같은 값을 설정하여 디지털 데이터를 만드는 과정입니다. 이는 연속적인 2차원 공간 상의 이미지를 컴퓨터가 처리할 수 있는 이산적인 디지털 데이터로 변환하기 위해 필요합니다.",
+    "k": [
+      "샘플링",
+      "양자화",
+      "디지털",
+      "이산",
+      "데이터"
+    ],
+    "explanation": "이미지의 디지털화를 위한 두 단계와 그 목적을 강의 텍스트 기반으로 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN이 비주얼 이미지 분석에서 선호되는 설계 동기 3가지를 설명하시오.",
+    "a": "첫째는 희소 상호작용으로, 작은 크기의 필터를 사용하여 입력의 국소적 정보를 활용합니다. 둘째는 파라미터 공유로, 하나의 필터를 입력 전체에 적용하여 효율성을 높입니다. 셋째는 등변 표현으로, 입력의 변화가 출력에 비례하는 변화를 만들어 공간적 구조를 더 잘 학습하도록 합니다.",
+    "k": [
+      "희소",
+      "상호작용",
+      "파라미터",
+      "공유",
+      "등변"
+    ],
+    "explanation": "CNN의 핵심 동기인 희소 상호작용, 파라미터 공유, 등변 표현을 상세히 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "디지털 이미지 처리를 위한 선형 필터의 연산 기초를 서술하시오.",
+    "a": "선형 필터는 입력 신호에 선형 함수를 적용합니다. 이때 출력의 크기는 입력의 크기에 비례하는 스케일링 성질을 따르며, 여러 입력을 동시에 처리할 때 결과를 합치는 중첩 성질을 따릅니다. 이를 기반으로 상관관계 혹은 컨볼루션 연산을 통해 이미지 데이터를 변형하고 원하는 특징을 추출합니다.",
+    "k": [
+      "선형",
+      "필터",
+      "스케일링",
+      "중첩",
+      "연산"
+    ],
+    "explanation": "선형 필터의 연산 성질과 이를 활용한 특징 추출 기반을 기술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "엣지 검출을 위한 필터 종류 중 Roberts, Prewitt, Sobel 필터의 차이점을 설명하시오.",
+    "a": "Roberts 필터는 대각선 방향의 엣지 검출에 특화되어 있습니다. Prewitt 필터는 x와 y축 차이를 세 번 계산하여 엣지를 검출합니다. Sobel 필터는 Prewitt 필터와 유사한 방식을 취하지만, 중심 픽셀에 두 배의 가중치를 부여하여 더 정확한 변화를 포착합니다.",
+    "k": [
+      "엣지",
+      "검출",
+      "로버츠",
+      "Prewitt",
+      "Sobel"
+    ],
+    "explanation": "엣지 검출용 필터들의 고유한 작동 원리와 차이점을 비교하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "이미지를 함수로 표현할 때 그레이 스케일과 RGB 방식의 차이를 설명하시오.",
+    "a": "그레이 스케일 이미지는 2차원 좌표 (x, y)를 단일 값인 강도(intensity)로 매핑하는 함수를 사용합니다. 반면 RGB 이미지는 2차원 좌표 (x, y)를 빨강, 초록, 파랑(r, g, b)이라는 세 가지 값의 조합으로 매핑하는 함수를 사용한다는 점에서 차이가 있습니다.",
+    "k": [
+      "함수",
+      "그레이",
+      "스케일",
+      "RGB",
+      "강도"
+    ],
+    "explanation": "두 이미지 표현 방식의 함수적 차이를 픽셀의 출력값을 기준으로 서술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN에서의 수용 영역(Receptive field)이란 무엇이며, 네트워크가 깊어질 때 어떤 변화가 일어나는지 설명하시오.",
+    "a": "수용 영역은 특정 CNN 특징이 입력 공간에서 바라보는 영역을 의미합니다. 네트워크가 더 깊어질수록 레이어를 거치며 수용 영역은 점차 확대됩니다. 이는 네트워크가 입력 이미지의 아주 작은 국소적 정보부터 더 추상적이고 복잡한 전역적 특징까지 포착할 수 있게 합니다.",
+    "k": [
+      "수용",
+      "영역",
+      "특징",
+      "네트워크"
+    ],
+    "explanation": "수용 영역의 개념과 네트워크 깊이에 따른 확장 효과를 기술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "HSV 이미지 모델의 세 가지 성분인 Hue, Saturation, Value에 대해 설명하시오.",
+    "a": "Hue는 색상 자체를 의미하며 0에서 360도 범위를 가집니다. Saturation은 색의 순도나 강도를 의미하며 0에서 100% 범위를 가집니다. 마지막으로 Value는 밝기를 의미하며 0에서 100% 범위를 가집니다.",
+    "k": [
+      "HSV",
+      "Hue",
+      "Saturation",
+      "Value"
+    ],
+    "explanation": "HSV 색상 모델의 3개 항목에 대한 정의와 그 범위를 정의하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "컨볼루션 연산에서 컨볼루션 필터와 상관관계 필터의 관계를 설명하시오.",
+    "a": "컨볼루션 필터는 상관관계 필터를 180도 회전시킨 것과 같습니다. 수학적으로 상관관계 필터가 연관성을 측정한다면, 컨볼루션 필터는 신호를 재구성하는 새로운 신호를 생성합니다. 만약 필터가 대칭적이라면 두 필터는 사실상 동일한 연산 결과를 출력하게 됩니다.",
+    "k": [
+      "컨볼루션",
+      "상관관계",
+      "필터",
+      "회전"
+    ],
+    "explanation": "두 필터 간의 관계와 회전 및 대칭성 조건을 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN 학습에서 하이퍼 파라미터가 모델에 미치는 영향을 설명하시오.",
+    "a": "필터 크기는 한번에 보는 입력의 범위를 결정하며, 스트라이드 크기는 필터가 움직이는 간격을 설정하여 출력의 크기를 조절합니다. 패딩 유형은 연산 과정에서 입력 이미지 외곽의 처리를 결정하여 공간적 보존 여부를 결정합니다. 이들은 모두 CNN의 학습 효율과 성능에 큰 영향을 미칩니다.",
+    "k": [
+      "CNN",
+      "하이퍼",
+      "파라미터",
+      "필터",
+      "학습"
+    ],
+    "explanation": "필터 크기, 스트라이드, 패딩이 갖는 기술적 역할을 중심으로 학습 효과를 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "다음 이미지를 처리하기 위해 Mean 필터와 Bilateral 필터를 사용할 경우의 차이를 설명하시오.",
+    "a": "Mean 필터는 단순 평균을 사용하여 주변 픽셀을 부드럽게 하지만, 이 과정에서 엣지까지도 함께 뭉개버릴 수 있습니다. 반면, Bilateral 필터는 스무딩을 수행하면서도 엣지의 경계는 보존하기 때문에 이미지가 부드러워지면서도 중요한 형태적 특징은 그대로 유지됩니다.",
+    "k": [
+      "필터",
+      "스무딩",
+      "엣지",
+      "보존"
+    ],
+    "explanation": "일반 스무딩 필터와 엣지 보존 필터의 차이를 비교하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "라플라시안 필터가 엣지 검출에 어떻게 기여하는지 설명하시오.",
+    "a": "라플라시안 필터는 2차 미분을 활용합니다. 1차 미분이 픽셀 값의 변화를 찾는다면, 2차 미분은 그 변화가 급격히 일어나는 지점의 변화율을 측정하여 엣지를 더 강력하게 강조합니다. 따라서 엣지가 뚜렷하지 않은 부분과 대비되는 급격한 변화 지점을 효과적으로 잡아내어 이미지 내의 주요 윤곽을 표현합니다.",
+    "k": [
+      "라플라시안",
+      "미분",
+      "엣지",
+      "변화"
+    ],
+    "explanation": "라플라시안 필터가 2차 미분을 통해 엣지를 어떻게 강조하는지 그 메커니즘을 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN에서 파라미터 공유가 필요한 이유는 무엇인지 효율성 측면에서 설명하시오.",
+    "a": "파라미터 공유가 없다면 각 위치마다 독립적인 필터 파라미터를 학습해야 하므로 모델의 복잡도가 비약적으로 증가합니다. 이를 통해 필터의 개수를 줄이면서도 입력의 모든 위치에 공통적인 특징 감지 기법을 적용할 수 있게 되어, 연산 효율성을 높이고 과적합을 방지하는 효과가 있습니다.",
+    "k": [
+      "파라미터",
+      "공유",
+      "학습",
+      "효율",
+      "복잡도"
+    ],
+    "explanation": "파라미터 공유가 모델 복잡도와 학습 효율에 미치는 영향을 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN 층에서 스트라이드(Stride)와 패딩(Padding)이 출력 크기에 어떤 영향을 주는지 각각 설명하시오.",
+    "a": "스트라이드는 필터가 한 번에 이동하는 간격으로, 간격이 넓어질수록 출력의 공간적 크기는 줄어듭니다. 패딩은 입력 이미지의 주변에 값을 추가하는 것으로, 'full' 패딩을 하면 출력의 크기가 유지되거나 늘어날 수 있고 'valid' 패딩은 테두리를 고려하지 않아 출력 크기를 줄이는 효과가 있습니다.",
+    "k": [
+      "스트라이드",
+      "패딩",
+      "출력",
+      "공간"
+    ],
+    "explanation": "스트라이드와 패딩의 설정을 통한 이미지 출력 크기 조절 원리를 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "이미지를 intensity 함수로 표현할 때, x, y 범위와 강도 값의 관계를 서술하시오.",
+    "a": "이미지는 2차원 공간 (x, y) 상의 강도 함수 f로 정의됩니다. 여기서 x는 [a, b], y는 [c, d]의 정의역을 가지며, 함수의 결과값인 강도는 0에서 255 사이의 범위를 가집니다. 이는 정해진 평면 위의 각 좌표마다 색상이나 밝기를 배정하여 시각적인 정보를 전달하게 합니다.",
+    "k": [
+      "이미지",
+      "강도",
+      "함수",
+      "좌표"
+    ],
+    "explanation": "이미지의 좌표 시스템과 강도 값의 함수적 정의를 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN의 풀링 층 중 맥스 풀링(Max pooling)과 평균 풀링(Average pooling)의 차이점을 설명하시오.",
+    "a": "맥스 풀링은 지정된 윈도우 내에서 가장 높은 값을 추출하여 특징이 강하게 나타나는 부분을 강조하는 방식입니다. 반면 평균 풀링은 지정된 윈도우 내의 모든 값을 평균 내어 지역적인 특징들을 완만하게 반영하는 방식입니다. 맥스 풀링은 중요한 특징점 찾기에 유리하고, 평균 풀링은 정보의 전반적인 요약에 적합합니다.",
+    "k": [
+      "맥스",
+      "풀링",
+      "평균",
+      "특징"
+    ],
+    "explanation": "두 풀링 방식의 연산 차이와 그로 인한 목적의 차이를 비교하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN의 설계 동기 중 희소 상호작용이 이미지 정보 처리에 어떤 이점을 주는가?",
+    "a": "희소 상호작용은 작은 필터를 사용하여 로컬한 입력 정보만을 고려합니다. 이를 통해 전체 이미지의 모든 픽셀을 한 번에 고려할 때 발생하는 방대한 연산량을 획기적으로 줄여줍니다. 또한 지역적으로 중요한 특징, 예를 들면 선분이나 곡선을 효과적으로 감지할 수 있게 하여 학습 성능을 개선합니다.",
+    "k": [
+      "희소",
+      "상호작용",
+      "연산",
+      "학습"
+    ],
+    "explanation": "희소 상호작용이 연산 효율성과 로컬 특징 감지에 주는 이점을 설명하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "CNN 층에서 필터(Filter)의 학습은 어떤 방식으로 이루어지는지 설명하시오.",
+    "a": "CNN의 학습은 컨볼루션 층의 필터 내부 요소값인 가중치를 최적화하는 과정입니다. 역전파 알고리즘 등을 통해 얻은 오차를 사용하여 필터 가중치를 반복적으로 조정함으로써, 모델은 데이터에서 유의미한 패턴과 특징을 자동으로 추출할 수 있는 상태로 변화해 나갑니다.",
+    "k": [
+      "CNN",
+      "필터",
+      "학습",
+      "가중치",
+      "최적화"
+    ],
+    "explanation": "CNN 필터 가중치가 학습을 통해 어떻게 최적화되는지 그 방향성을 서술하였습니다."
+  },
+  {
+    "chapter": "6_convolutional neural net",
+    "type": "essay",
+    "q": "이미지 처리를 위한 로버츠 필터의 작동 원리와 목적을 설명하시오.",
+    "a": "로버츠 필터는 인접한 픽셀 간의 차이를 계산하여 엣지를 검출합니다. 특히 대각선 방향으로의 픽셀 차이를 계산하는 연산자를 통해 사선 형태의 엣지를 강조하는 데 목적이 있습니다. 이는 간단한 연산으로 빠르게 대각선 엣지 정보를 얻을 수 있는 장점이 있습니다.",
+    "k": [
+      "로버츠",
+      "필터",
+      "엣지",
+      "검출"
+    ],
+    "explanation": "로버츠 필터의 연산 특징인 대각선 엣지 검출을 중심으로 설명하였습니다."
+  }
+]

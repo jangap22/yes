@@ -15,6 +15,11 @@
           "chapter": "4 Regression"
         },
         {
+          "file": "problemset/6_convolutional neural net.json",
+          "questionSet": "problemset",
+          "chapter": "6 Convolutional Neural Net"
+        },
+        {
           "file": "problemset-test/advanced_ai.json",
           "questionSet": "problemset-test",
           "chapter": "Advanced Ai"
@@ -25,6 +30,11 @@
       "id": "sw_engineering",
       "name": "Sw Engineering",
       "lectures": [
+        {
+          "file": "problemset/01_overview.json",
+          "questionSet": "problemset",
+          "chapter": "01 Overview"
+        },
         {
           "file": "problemset-test/01_overview.json",
           "questionSet": "problemset-test",
