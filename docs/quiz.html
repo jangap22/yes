@@ -52,10 +52,20 @@
             <strong>모의고사 출제 설정</strong>
             <span id="ratio-summary">선택 챕터 균등 출제</span>
           </div>
-          <label class="exam-count-control">
-            <span>문제 개수</span>
-            <input id="exam-count-input" type="number" min="1" value="20" />
-          </label>
+          <div class="exam-config-grid">
+            <label class="exam-mode-control">
+              <span>문제 유형 모드</span>
+              <select id="exam-mode-select">
+                <option value="default">기본 모드</option>
+                <option value="essay">서술형 모드</option>
+                <option value="short">단답 모드</option>
+              </select>
+            </label>
+            <label class="exam-count-control">
+              <span>총 문항 수</span>
+              <input id="exam-count-input" type="number" min="1" value="20" readonly />
+            </label>
+          </div>
           <div id="chapter-ratio-list" class="chapter-ratio-list"></div>
         </div>
 
@@ -64,23 +74,27 @@
           <div class="progress">진행: <span id="current-idx">0</span> / <span id="total-count">0</span></div>
         </div>
 
-        <div id="question-area">데이터 로드 중...</div>
+        <div class="quiz-layout">
+          <section class="quiz-column quiz-column-left" aria-label="문제 풀이 영역">
+            <div id="question-area">데이터 로드 중...</div>
 
-        <div id="input-container">
-          <textarea id="user-answer" placeholder="답안을 입력하세요..."></textarea>
-        </div>
-        <div id="options-container"></div>
+            <div id="input-container">
+              <textarea id="user-answer" placeholder="답안을 입력하세요..."></textarea>
+            </div>
+            <div id="options-container"></div>
 
-        <div class="btn-group">
-          <button id="submit-btn" class="main-btn btn-submit">제출 (Enter)</button>
-          <button id="next-btn" class="main-btn btn-next">다음 문제 (Enter/Space)</button>
-          <button id="quit-btn" class="btn-quit">시험 포기</button>
-        </div>
+            <div class="btn-group">
+              <button id="submit-btn" class="main-btn btn-submit">제출 (Enter)</button>
+              <button id="next-btn" class="main-btn btn-next">다음 문제 (Enter/Space)</button>
+              <button id="quit-btn" class="btn-quit">시험 포기</button>
+            </div>
+          </section>
 
-        <div id="feedback-area">
-          <div id="result-text"></div>
-          <hr />
-          <div id="answer-detail"></div>
+          <aside id="feedback-area" class="quiz-column quiz-column-right" aria-label="채점 결과 및 해설">
+            <div id="result-text"></div>
+            <hr />
+            <div id="answer-detail"></div>
+          </aside>
         </div>
       </section>
     </main>

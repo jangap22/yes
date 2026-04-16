@@ -20,6 +20,7 @@ const state = {
   subject: null,
   lectures: [],
   chapterWeights: {},
+  examMode: "default",
   isExamSetupOpen: false,
 };
 
@@ -34,6 +35,7 @@ const ui = {
   examBtn: document.getElementById("exam-btn"),
   resetBtn: document.getElementById("reset-btn"),
   ratioPanel: document.getElementById("exam-ratio-panel"),
+  examMode: document.getElementById("exam-mode-select"),
   ratioList: document.getElementById("chapter-ratio-list"),
   ratioSummary: document.getElementById("ratio-summary"),
   examCount: document.getElementById("exam-count-input"),
@@ -51,6 +53,29 @@ const ui = {
   submitBtn: document.getElementById("submit-btn"),
   nextBtn: document.getElementById("next-btn"),
   quitBtn: document.getElementById("quit-btn"),
+};
+
+const EXAM_TYPE_PRESETS = {
+  default: {
+    label: "기본 모드",
+    counts: { ox: 3, multiple: 6, short: 6, essay: 5 },
+  },
+  essay: {
+    label: "서술형 모드",
+    counts: { essay: 15, short: 5 },
+  },
+  short: {
+    label: "단답 모드",
+    counts: { ox: 10, short: 10 },
+  },
+};
+
+const EXAM_TYPE_ORDER = ["ox", "multiple", "short", "essay"];
+const EXAM_TYPE_LABELS = {
+  ox: "O/X",
+  multiple: "객관식",
+  short: "단답형",
+  essay: "서술형",
 };
 
 function escapeHtml(value) {
@@ -135,33 +160,54 @@ function getChapterAvailability() {
   }, {});
 }
 
+function getSelectedTypePreset() {
+  return EXAM_TYPE_PRESETS[state.examMode]?.counts || EXAM_TYPE_PRESETS.default.counts;
+}
+
+function getSelectedTypePresetLabel() {
+  return EXAM_TYPE_PRESETS[state.examMode]?.label || EXAM_TYPE_PRESETS.default.label;
+}
+
+function getPresetTotalCount() {
+  return Object.values(getSelectedTypePreset()).reduce((sum, count) => sum + count, 0);
+}
+
 function getNormalizedChapterRatios() {
   const chapters = getChapters();
   const selectedChapters = chapters.filter((chapter) => state.chapterWeights[chapter] > 0);
-  const denominator = selectedChapters.length || chapters.length || 1;
-  const examCount = getExamQuestionCount();
+  const totalWeight = selectedChapters.reduce((sum, chapter) => sum + Number(state.chapterWeights[chapter] || 0), 0);
+  const examCount = getPresetTotalCount();
 
   return chapters.map((chapter) => {
-    const selected = selectedChapters.length
-      ? selectedChapters.includes(chapter)
-      : true;
-    const ratio = selected ? 1 / denominator : 0;
+    const weight = Number(state.chapterWeights[chapter] || 0);
+    const ratio = totalWeight > 0 ? weight / totalWeight : 0;
     return {
       chapter,
-      weight: selected ? 1 : 0,
+      weight,
       ratio,
       expectedCount: Math.round(ratio * examCount),
     };
   });
 }
 
-function getExamQuestionCount() {
-  const parsed = Number(ui.examCount.value);
-  const max = state.masterData.length || 1;
-  if (!Number.isFinite(parsed)) {
-    return Math.min(20, max);
-  }
-  return Math.max(1, Math.min(max, Math.floor(parsed)));
+function syncChapterRatioUI() {
+  getChapters().forEach((chapter) => {
+    const selected = Number(state.chapterWeights[chapter] || 0) > 0;
+    const toggle = document.querySelector(`[data-ratio-toggle="${CSS.escape(chapter)}"]`);
+    const body = document.querySelector(`[data-ratio-body="${CSS.escape(chapter)}"]`);
+    const slider = document.querySelector(`[data-ratio-slider="${CSS.escape(chapter)}"]`);
+    if (toggle) {
+      toggle.classList.toggle("is-active", selected);
+      toggle.setAttribute("aria-pressed", String(selected));
+      toggle.textContent = selected ? "켜짐" : "꺼짐";
+    }
+    if (body) {
+      body.hidden = !selected;
+    }
+    if (slider) {
+      slider.value = String(Math.round(Number(state.chapterWeights[chapter] || 0)));
+    }
+  });
 }
 
 function updateRatioLabels() {
@@ -177,8 +223,28 @@ function updateRatioLabels() {
 
   const activeRows = rows.filter((row) => row.weight > 0);
   ui.ratioSummary.textContent = activeRows.length
-    ? `${getExamQuestionCount()}문항 · ${activeRows.length}개 챕터 균등 출제`
+    ? `${getPresetTotalCount()}문항 · ${activeRows.length}개 챕터 균등 출제 · ${getSelectedTypePresetLabel()}`
     : "최소 1개 챕터를 선택해야 합니다.";
+}
+
+function rebalanceSelectedChapters() {
+  const chapters = getChapters();
+  const selected = chapters.filter((chapter) => Number(state.chapterWeights[chapter] || 0) > 0);
+  const equalWeight = selected.length ? 100 / selected.length : 0;
+
+  chapters.forEach((chapter) => {
+    state.chapterWeights[chapter] = selected.includes(chapter) ? equalWeight : 0;
+  });
+
+  syncChapterRatioUI();
+  updateRatioLabels();
+}
+
+function applyExamModePreset(mode) {
+  state.examMode = mode;
+  ui.examMode.value = mode;
+  ui.examCount.value = String(getPresetTotalCount());
+  updateRatioLabels();
 }
 
 function renderChapterRatioSliders() {
@@ -196,25 +262,48 @@ function renderChapterRatioSliders() {
   state.isExamSetupOpen = false;
   ui.examBtn.textContent = "📝 모의고사 시작";
   ui.examCount.max = String(state.masterData.length);
-  ui.examCount.value = String(Math.min(20, state.masterData.length));
+  ui.examCount.readOnly = true;
+  ui.examCount.value = String(getPresetTotalCount());
+  ui.examMode.value = state.examMode;
   chapters.forEach((chapter) => {
-    state.chapterWeights[chapter] = 1;
-    const row = document.createElement("label");
+    state.chapterWeights[chapter] = 0;
+    const row = document.createElement("div");
     row.className = "chapter-ratio-row";
     row.innerHTML = `
-      <span class="chapter-ratio-title">${chapter}</span>
-      <input type="checkbox" checked data-ratio-toggle="${chapter}">
-      <span class="chapter-ratio-value" data-ratio-value="${chapter}"></span>
-      <span class="chapter-ratio-count">${availability[chapter]}문제 보유</span>
+      <button type="button" class="chapter-ratio-toggle" data-ratio-toggle="${chapter}" aria-pressed="false">OFF</button>
+      <div class="chapter-ratio-body" data-ratio-body="${chapter}" hidden>
+        <div class="chapter-ratio-title-row">
+          <span class="chapter-ratio-title">${chapter}</span>
+          <span class="chapter-ratio-count">${availability[chapter]}문제 보유</span>
+        </div>
+        <input class="chapter-ratio-slider" type="range" min="0" max="100" step="1" value="0" data-ratio-slider="${chapter}" />
+        <div class="chapter-ratio-meta">
+          <span data-ratio-value="${chapter}">제외</span>
+          <span>토글 후 슬라이더 표시</span>
+        </div>
+      </div>
     `;
-    const slider = row.querySelector("input");
-    slider.addEventListener("change", () => {
-      state.chapterWeights[chapter] = slider.checked ? 1 : 0;
+    const toggle = row.querySelector(`[data-ratio-toggle="${CSS.escape(chapter)}"]`);
+    const slider = row.querySelector(`[data-ratio-slider="${CSS.escape(chapter)}"]`);
+    toggle.addEventListener("click", () => {
+      const active = Number(state.chapterWeights[chapter] || 0) > 0;
+      state.chapterWeights[chapter] = active ? 0 : 100;
+      if (Object.values(state.chapterWeights).some((weight) => Number(weight) > 0)) {
+        rebalanceSelectedChapters();
+      } else {
+        syncChapterRatioUI();
+        updateRatioLabels();
+      }
+    });
+    slider.addEventListener("input", () => {
+      state.chapterWeights[chapter] = Number(slider.value);
+      syncChapterRatioUI();
       updateRatioLabels();
     });
     ui.ratioList.appendChild(row);
   });
 
+  syncChapterRatioUI();
   updateRatioLabels();
 }
 
@@ -390,13 +479,15 @@ function startMockExam() {
     if (!state.isExamSetupOpen) {
       state.isExamSetupOpen = true;
       ui.ratioPanel.hidden = false;
+      applyExamModePreset(ui.examMode.value || "default");
       ui.examBtn.textContent = "설정한 비율로 시작";
+      syncChapterRatioUI();
       updateRatioLabels();
       return;
     }
 
     const selectedChapters = getChapters().filter(
-      (chapter) => state.chapterWeights[chapter] > 0
+      (chapter) => Number(state.chapterWeights[chapter] || 0) > 0
     );
     if (!selectedChapters.length) {
       window.alert("최소 1개 챕터를 선택하세요.");
@@ -406,13 +497,15 @@ function startMockExam() {
     const examData = state.masterData.filter((question) =>
       selectedChapters.includes(question.chapter)
     );
-    const examCount = getExamQuestionCount();
-    const equalWeights = Object.fromEntries(
-      selectedChapters.map((chapter) => [chapter, 1])
+    const examCount = getPresetTotalCount();
+    const chapterWeights = Object.fromEntries(
+      selectedChapters.map((chapter) => [chapter, Number(state.chapterWeights[chapter] || 0)])
     );
+    const typeWeights = getSelectedTypePreset();
 
     const exam = buildMockExam(examData, {
-      chapterWeights: equalWeights,
+      chapterWeights,
+      typeWeights,
       totalCount: examCount,
     });
     state.isExamMode = true;
@@ -427,11 +520,16 @@ function startMockExam() {
     ui.currentIdx.textContent = "1";
     showQuestion();
     const planText = exam.chapterPlan
-      .map((plan) => `${plan.chapter}: ${plan.count}문항`)
+      .map((plan) => `${plan.key}: ${plan.count}문항`)
       .join("\n");
+    const typeText = EXAM_TYPE_ORDER
+      .map((type) => `${EXAM_TYPE_LABELS[type] || type}: ${Number(exam.typePlan?.[type] || 0)}문항`)
+      .filter((line) => !line.endsWith("0문항"))
+      .join(", ");
     window.alert(`[모의고사 세션 시작]
 - 챕터 비율 기반 출제
 ${planText}
+- 유형 비율: ${typeText}
 - 총 ${examCount}문항`);
   } catch (error) {
     window.alert(error.message);
@@ -476,6 +574,7 @@ function finishExam() {
   });
 }
 
+// 채점 로직과 결과 표시를 담당하는 함수
 function submitAnswer(choiceValue = null) {
   if (state.isAnswered) {
     return;
@@ -504,7 +603,7 @@ function submitAnswer(choiceValue = null) {
 
   updateReviewUI();
   ui.answer.disabled = true;
-  ui.feedback.style.display = "block";
+  ui.feedback.style.display = "grid";
   ui.feedback.className = result.correct ? "correct" : "wrong";
   ui.resultText.innerHTML = `
     <strong>${result.correct ? "✅ 정답/통과" : "❌ 오답/복습필요"}</strong>
@@ -520,6 +619,21 @@ function submitAnswer(choiceValue = null) {
       const matched = result.matchedKeywords.includes(keyword);
       detailHtml += `<span class="keyword-tag ${matched ? "matched" : "missed"}">${escapeHtml(keyword)}</span>`;
     });
+  }
+
+  // 단답형과 서술형 문제에 대해서는 채점 요소별 세부 점수와 기준을 표시
+  if (question.type === "short" && result.shortBreakdown) {
+    const { mode, keywordScoreRatio, tokenSimilarityRatio, passRatio } = result.shortBreakdown;
+    detailHtml += `
+      <div class="essay-breakdown">
+        <strong>[단답형 채점 방식]</strong>
+        ${
+          mode === "keyword"
+            ? `<span>키워드 일치율 ${(keywordScoreRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
+            : `<span>정답-답안 토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
+        }
+      </div>
+    `;
   }
 
   if (question.type === "essay" && result.essayBreakdown) {
@@ -583,7 +697,9 @@ function bindEvents() {
   ui.chapter.addEventListener("change", applyFilter);
   ui.type.addEventListener("change", applyFilter);
   ui.resetBtn.addEventListener("click", resetStudy);
-  ui.examCount.addEventListener("input", updateRatioLabels);
+  ui.examMode.addEventListener("change", () => {
+    applyExamModePreset(ui.examMode.value);
+  });
   ui.reviewBtn.addEventListener("click", startReview);
   ui.examBtn.addEventListener("click", startMockExam);
   ui.submitBtn.addEventListener("click", () => submitAnswer());

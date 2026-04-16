@@ -109,6 +109,27 @@ button {
   padding: 2rem;
 }
 
+.quiz-layout {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+}
+
+.quiz-column {
+  min-width: 0;
+}
+
+.quiz-column-left {
+  display: grid;
+  gap: 16px;
+}
+
+.quiz-column-right {
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+}
+
 .filter-section {
   display: flex;
   flex-wrap: wrap;
@@ -128,9 +149,23 @@ button {
   background: #f7fbff;
 }
 
+.exam-config-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.exam-mode-control {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .ratio-panel-head {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
   margin-bottom: 10px;
   color: #2c3e50;
@@ -138,16 +173,24 @@ button {
 }
 
 .exam-count-control {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  margin-bottom: 12px;
   font-size: 0.9rem;
   font-weight: 700;
 }
 
+.exam-mode-control {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.exam-mode-control select,
 .exam-count-control input {
-  width: 90px;
+  width: 100%;
+}
+
+.exam-count-control input {
   padding: 7px 8px;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -156,31 +199,68 @@ button {
 
 .chapter-ratio-list {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .chapter-ratio-row {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) 44px 120px 90px;
-  align-items: center;
+  grid-template-columns: 44px 1fr;
   gap: 10px;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid #dce6f5;
+  border-radius: 8px;
+  background: #ffffff;
   font-size: 0.86rem;
 }
 
-.chapter-ratio-title {
+.chapter-ratio-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #e8eef8;
+  color: #48607f;
   font-weight: 700;
+  border: 1px solid #c7d3e6;
 }
 
-.chapter-ratio-row input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--primary);
+.chapter-ratio-toggle.is-active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.chapter-ratio-body {
+  display: grid;
+  gap: 8px;
+}
+
+.chapter-ratio-body[hidden] {
+  display: none;
+}
+
+.chapter-ratio-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
 }
 
 .chapter-ratio-value,
 .chapter-ratio-count,
 #ratio-summary {
   color: var(--muted);
+}
+
+.chapter-ratio-slider {
+  width: 100%;
+}
+
+.chapter-ratio-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.82rem;
 }
 
 select,
@@ -419,7 +499,29 @@ button.main-btn {
   background: #2c3e50;
 }
 
-@media (max-width: 720px) {
+@media (min-width: 769px) {
+  .quiz-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  }
+
+  .quiz-column-right {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 280px);
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  #question-area {
+    margin-top: 0;
+  }
+
+  .btn-group {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
   .page-shell,
   .study-shell {
     width: min(100% - 20px, 100%);
@@ -441,7 +543,15 @@ button.main-btn {
     flex-direction: column;
   }
 
-  .chapter-ratio-row {
+  .quiz-layout {
     grid-template-columns: 1fr;
+  }
+
+  .exam-config-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chapter-ratio-row {
+    grid-template-columns: 44px 1fr;
   }
 }

@@ -52,6 +52,22 @@ function gradeShort(question, userAnswer) {
   const keywords = Array.isArray(question.k) ? question.k : [];
   const inputTokens = getTokenSet(input, { useSynonyms: true });
   const inputCompact = normalizeCompact(input);
+  const answerTokens = getTokenSet(question.a, { useSynonyms: true });
+  const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
+
+  if (tokenSimilarityRatio >= 0.7) {
+    return {
+      correct: true,
+      scoreRatio: tokenSimilarityRatio,
+      matchedKeywords: [],
+      shortBreakdown: {
+        mode: "answer",
+        tokenSimilarityRatio,
+        passRatio: 0.7,
+      },
+    };
+  }
+
   const matchedKeywords = keywords.filter((keyword) => {
     const keywordCompact = normalizeCompact(keyword);
     if (keywordCompact && inputCompact.includes(keywordCompact)) {
@@ -69,12 +85,16 @@ function gradeShort(question, userAnswer) {
   const keywordScoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
 
   if (!keywords.length) {
-    const answerTokens = getTokenSet(question.a, { useSynonyms: true });
-    const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
     return {
-      correct: tokenSimilarityRatio >= 0.7,
+      correct: false,
       scoreRatio: tokenSimilarityRatio,
       matchedKeywords: [],
+      shortBreakdown: {
+        mode: "answer",
+        tokenSimilarityRatio,
+        keywordScoreRatio: 0,
+        passRatio: 0.7,
+      },
     };
   }
 
@@ -82,6 +102,12 @@ function gradeShort(question, userAnswer) {
     correct: keywordScoreRatio >= 0.7,
     scoreRatio: keywordScoreRatio,
     matchedKeywords,
+    shortBreakdown: {
+      mode: "keyword",
+      keywordScoreRatio,
+      tokenSimilarityRatio,
+      passRatio: 0.7,
+    },
   };
 }
 
@@ -321,22 +347,23 @@ function getChapterCounts(masterData) {
   }, {});
 }
 
-function allocateChapterQuestionCounts(masterData, chapterWeights, totalCount) {
-  const chapterCounts = getChapterCounts(masterData);
-  const chapters = Object.keys(chapterCounts).sort();
-  const weightedChapters = chapters.map((chapter) => ({
-    chapter,
-    available: chapterCounts[chapter],
-    weight: Math.max(0, Number(chapterWeights?.[chapter]) || 0),
-  }));
-  const totalWeight = weightedChapters.reduce((sum, item) => sum + item.weight, 0);
-  const normalizedChapters = totalWeight > 0
-    ? weightedChapters
-    : weightedChapters.map((item) => ({ ...item, weight: 1 }));
-  const normalizedWeight = normalizedChapters.reduce((sum, item) => sum + item.weight, 0);
+function getTypeCounts(masterData) {
+  return masterData.reduce((counts, question) => {
+    const type = String(question.type || "").toLowerCase() || "unknown";
+    counts[type] = (counts[type] || 0) + 1;
+    return counts;
+  }, {});
+}
 
-  const allocations = normalizedChapters.map((item) => {
-    const exact = (item.weight / normalizedWeight) * totalCount;
+function allocateWeightedCounts(buckets, totalCount, order = []) {
+  const safeBuckets = buckets.length ? buckets : [];
+  const totalWeight = safeBuckets.reduce((sum, item) => sum + item.weight, 0);
+  const normalizedBuckets =
+    totalWeight > 0 ? safeBuckets : safeBuckets.map((item) => ({ ...item, weight: 1 }));
+  const normalizedWeight = normalizedBuckets.reduce((sum, item) => sum + item.weight, 0);
+
+  const allocations = normalizedBuckets.map((item) => {
+    const exact = normalizedWeight > 0 ? (item.weight / normalizedWeight) * totalCount : 0;
     const count = Math.min(item.available, Math.floor(exact));
     return {
       ...item,
@@ -350,7 +377,12 @@ function allocateChapterQuestionCounts(masterData, chapterWeights, totalCount) {
   while (assigned < totalCount) {
     const candidate = allocations
       .filter((item) => item.count < item.available)
-      .sort((a, b) => b.remainder - a.remainder || b.weight - a.weight)[0];
+      .sort((a, b) => {
+        const orderDelta = order.length
+          ? order.indexOf(a.key) - order.indexOf(b.key)
+          : 0;
+        return b.remainder - a.remainder || b.weight - a.weight || orderDelta;
+      })[0];
     if (!candidate) {
       break;
     }
@@ -360,6 +392,42 @@ function allocateChapterQuestionCounts(masterData, chapterWeights, totalCount) {
   }
 
   return allocations.filter((item) => item.count > 0);
+}
+
+function allocateChapterQuestionCounts(masterData, chapterWeights, totalCount) {
+  const chapterCounts = getChapterCounts(masterData);
+  const chapters = Object.keys(chapterCounts).sort();
+  const weightedChapters = chapters.map((chapter) => ({
+    key: chapter,
+    available: chapterCounts[chapter],
+    weight: Math.max(0, Number(chapterWeights?.[chapter]) || 0),
+  }));
+  return allocateWeightedCounts(weightedChapters, totalCount, chapters);
+}
+
+function allocateTypeQuestionCounts(masterData, typeWeights, totalCount) {
+  const typeCounts = getTypeCounts(masterData);
+  const order = ["ox", "multiple", "short", "essay"];
+  const types = Object.keys(typeCounts).sort((a, b) => {
+    const aIndex = order.indexOf(a);
+    const bIndex = order.indexOf(b);
+    if (aIndex === -1 && bIndex === -1) {
+      return a.localeCompare(b);
+    }
+    if (aIndex === -1) {
+      return 1;
+    }
+    if (bIndex === -1) {
+      return -1;
+    }
+    return aIndex - bIndex;
+  });
+  const weightedTypes = types.map((type) => ({
+    key: type,
+    available: typeCounts[type],
+    weight: Math.max(0, Number(typeWeights?.[type]) || 0),
+  }));
+  return allocateWeightedCounts(weightedTypes, totalCount, order);
 }
 
 export function buildMockExam(masterData, options = {}) {
@@ -374,11 +442,26 @@ export function buildMockExam(masterData, options = {}) {
     options.chapterWeights || {},
     totalCount
   );
+  const typeWeights = options.typeWeights || {};
+  const typePlan = allocateTypeQuestionCounts(masterData, typeWeights, totalCount);
   let selectedQuestions = [];
 
-  chapterPlan.forEach((plan) => {
-    const pool = masterData.filter((question) => question.chapter === plan.chapter);
-    selectedQuestions.push(...getRandom(pool, plan.count));
+  typePlan.forEach((typeAllocation) => {
+    const typePool = masterData.filter((question) => question.type === typeAllocation.key);
+    const chapterSubPlan = allocateChapterQuestionCounts(
+      typePool,
+      options.chapterWeights || {},
+      typeAllocation.count
+    );
+
+    chapterSubPlan.forEach((chapterAllocation) => {
+      const chapterPool = typePool.filter(
+        (question) => question.chapter === chapterAllocation.key &&
+          !selectedQuestions.some((selected) => selected.id === question.id)
+      );
+      const picks = getRandom(chapterPool, chapterAllocation.count);
+      selectedQuestions.push(...picks);
+    });
   });
 
   if (selectedQuestions.length < totalCount) {
@@ -390,9 +473,12 @@ export function buildMockExam(masterData, options = {}) {
     );
   }
 
+  const actualTypeCounts = getTypeCounts(selectedQuestions);
+
   return {
     questions: shuffle(selectedQuestions),
     chapterPlan,
+    typePlan: actualTypeCounts,
   };
 }
 
