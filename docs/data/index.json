@@ -5,14 +5,19 @@
       "name": "Advanced Ai",
       "lectures": [
         {
-          "file": "problemset-test/advanced_ai.json",
-          "questionSet": "problemset-test",
-          "chapter": "Advanced Ai"
-        },
-        {
           "file": "problemset/3_linear algebra.json",
           "questionSet": "problemset",
           "chapter": "3 Linear Algebra"
+        },
+        {
+          "file": "problemset/4_regression.json",
+          "questionSet": "problemset",
+          "chapter": "4 Regression"
+        },
+        {
+          "file": "problemset-test/advanced_ai.json",
+          "questionSet": "problemset-test",
+          "chapter": "Advanced Ai"
         }
       ]
     },
