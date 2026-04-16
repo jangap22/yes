@@ -23,6 +23,11 @@
           "file": "problemset/4_regression.json",
           "questionSet": "problemset",
           "chapter": "4 Regression"
+        },
+        {
+          "file": "problemset/5_multi-layer perceptron.json",
+          "questionSet": "problemset",
+          "chapter": "5 Multi-Layer Perceptron"
         }
       ]
     },
