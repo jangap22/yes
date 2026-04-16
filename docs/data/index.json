@@ -36,6 +36,11 @@
           "chapter": "01 Overview"
         },
         {
+          "file": "problemset/02_quality.json",
+          "questionSet": "problemset",
+          "chapter": "02 Quality"
+        },
+        {
           "file": "problemset-test/01_overview.json",
           "questionSet": "problemset-test",
           "chapter": "01. Overview"
