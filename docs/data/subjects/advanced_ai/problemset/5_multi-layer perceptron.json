@@ -1,0 +1,1289 @@
+[
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "퍼셉트론(Perceptron)은 XOR 게이트와 같은 비선형 문제를 해결하는 데 효과적이다.",
+    "a": "X",
+    "k": [
+      "퍼셉트론",
+      "비선형"
+    ],
+    "explanation": "강의 자료에 따르면 퍼셉트론은 OR나 NAND와 같은 기본적인 논리 게이트는 모델링할 수 있지만, XOR 게이트와 같은 비선형 문제는 해결하기 어렵다고 명시되어 있습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP의 구조 중 입력층과 출력층 사이에 위치하는 층은 무엇인가?",
+    "a": "Hidden layers",
+    "k": [
+      "다층 퍼셉트론",
+      "은닉층"
+    ],
+    "explanation": "다층 퍼셉트론은 입력층, 은닉층(Hidden layers), 출력층으로 구성됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "오차 역전파(Back-Propagation of Error)는 모델의 가중치를 최적화하기 위해 연쇄 법칙(Chain rule)을 사용한다.",
+    "a": "O",
+    "k": [
+      "오차 역전파",
+      "연쇄 법칙"
+    ],
+    "explanation": "오차 역전파는 최적화를 위해 연쇄 법칙을 사용하여 뒤에서부터 층별로 그래디언트를 계산합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "아담(Adam) 최적화 방법은 모멘텀(Momentum)과 RMSProp의 장점을 결합한 방식이다.",
+    "a": "O",
+    "k": [
+      "아담",
+      "모멘텀"
+    ],
+    "explanation": "아담은 모멘텀과 RMSProp 최적화 기법을 결합하여 가중치를 업데이트하는 최적화 방법입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "배치 정규화(Batch Normalization)는 내부 공변량 변화(Internal Covariate Shift) 문제를 해결하기 위해 사용된다.",
+    "a": "O",
+    "k": [
+      "배치 정규화",
+      "내부 공변량 변화"
+    ],
+    "explanation": "배치 정규화는 미니 배치 단위로 활성화 값을 정규화하여 내부 공변량 변화 문제를 해결합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "회귀(Regression) 문제의 손실 함수(Loss function)로 교차 엔트로피(Cross Entropy)를 사용한다.",
+    "a": "X",
+    "k": [
+      "회귀",
+      "교차 엔트로피"
+    ],
+    "explanation": "회귀 문제에서는 평균 제곱 오차(Mean Squared Error)를 사용하며, 교차 엔트로피는 분류(Classification) 문제에서 사용됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "He 초기화(He Initialization)는 주로 시그모이드(Sigmoid) 활성화 함수와 함께 사용된다.",
+    "a": "X",
+    "k": [
+      "He 초기화",
+      "시그모이드"
+    ],
+    "explanation": "He 초기화는 ReLU 활성화 함수 사용 시 발생하는 문제를 해결하기 위해 설계되었으며, Xavier 초기화가 시그모이드/tanh에 적합합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "확률적 경사 하강법(SGD, Stochastic Gradient Descent)은 효율성을 위해 주로 미니 배치(Mini-batch)를 사용한다.",
+    "a": "O",
+    "k": [
+      "확률적 경사 하강법",
+      "미니 배치"
+    ],
+    "explanation": "확률적 경사 하강법은 전체 데이터가 아닌 미니 배치를 사용하여 계산 효율성을 높입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "학습 모델이 과적합(Overfitting)될 때 사용하는 정규화 기법의 두 가지 형태는 무엇인가?",
+    "a": "L1/L2",
+    "k": [
+      "정규화",
+      "과적합"
+    ],
+    "explanation": "강의 자료에서 제시하는 정규화 기법은 L1과 L2 정규화입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "층 정규화(Layer Normalization)는 미니 배치 내에서 데이터를 정규화한다.",
+    "a": "X",
+    "k": [
+      "층 정규화",
+      "정규화"
+    ],
+    "explanation": "층 정규화는 배치 단위가 아닌 특징(feature) 차원을 가로질러 정규화합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "퍼셉트론이 출력 1을 내보내기 위해 순수 입력값이 넘어야 하는 기준값은 무엇인가?",
+    "a": "Threshold",
+    "k": [
+      "퍼셉트론",
+      "임계값"
+    ],
+    "explanation": "퍼셉트론은 순수 입력값이 임계값(Threshold)보다 클 때 1을 출력합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "Xavier 초기화는 분산(Variance)을 일관되게 유지하기 위해 설계되었다.",
+    "a": "O",
+    "k": [
+      "Xavier 초기화",
+      "분산"
+    ],
+    "explanation": "Xavier 초기화는 시그모이드나 tanh 활성화 함수에서 분산을 일관되게 유지하도록 설계되었습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "인공신경망은 어떤 기관에서 영감을 받아 설계되었는가?",
+    "a": "Human brain",
+    "k": [
+      "인공신경망",
+      "뇌"
+    ],
+    "explanation": "인공신경망(ANN)은 인간의 뇌(Human brain) 구조를 모방하여 설계되었습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "다층 퍼셉트론에서 은닉층의 활성화 함수가 없으면 비선형 데이터를 표현할 수 있다.",
+    "a": "X",
+    "k": [
+      "은닉층",
+      "비선형"
+    ],
+    "explanation": "은닉층에 활성화 함수가 없다면 선형 연산의 연속일 뿐이므로 비선형 데이터를 표현할 수 없습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "RMSProp은 AdaGrad의 약점을 보완하기 위해 지수 이동 평균(Exponential smoothing)을 사용한다.",
+    "a": "O",
+    "k": [
+      "RMSProp",
+      "지수 이동 평균"
+    ],
+    "explanation": "RMSProp은 AdaGrad가 가진 학습률 감소 문제를 해결하기 위해 지수 이동 평균을 활용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론 구조에서 입력층과 출력층을 제외한 나머지 모든 층을 통칭하는 용어는 무엇인가?",
+    "a": "은닉층",
+    "k": [
+      "은닉층"
+    ],
+    "explanation": "입력과 출력 사이의 연결을 담당하는 모든 계층을 은닉층이라 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "분류 문제에서 모델의 출력값과 실제 타겟값 사이의 거리(차이)를 계산하여 모델 학습의 지표로 삼는 함수를 무엇이라 하는가?",
+    "a": "손실 함수",
+    "k": [
+      "손실 함수"
+    ],
+    "explanation": "손실 함수(Loss function)는 예측값과 타겟값 사이의 차이를 나타내며 이를 최소화하는 방향으로 학습합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론에서 각 층의 그래디언트를 뒤에서부터 차례로 계산하기 위해 사용하는 수학적 규칙은 무엇인가?",
+    "a": "연쇄 법칙",
+    "k": [
+      "연쇄 법칙"
+    ],
+    "explanation": "연쇄 법칙(Chain rule)은 미분의 합성 함수 원리를 사용하여 역전파 시 그래디언트를 구할 때 사용됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "가중치 초기화 시 He 초기화가 고려하는 데이터의 분산 기준은 무엇인가?",
+    "a": "n_l",
+    "k": [
+      "He 초기화"
+    ],
+    "explanation": "He 초기화는 해당 레이어의 뉴런 수인 $n_l$을 기준으로 가중치를 초기화합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "모델 학습 시 가중치 갱신을 위해 미니 배치를 활용하여 효율성을 높인 최적화 알고리즘의 명칭은 무엇인가?",
+    "a": "확률적 경사 하강법",
+    "k": [
+      "확률적 경사 하강법"
+    ],
+    "explanation": "확률적 경사 하강법(SGD)은 전체 데이터 대신 미니 배치 단위로 경사를 업데이트하여 효율성을 확보합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "강의 자료에서 신경망의 성능을 최적화하기 위해 사용한다고 명시된, 미니 배치 내 활성화 값을 정규화하는 기법은 무엇인가?",
+    "a": "Batch Normalization",
+    "k": [
+      "배치 정규화"
+    ],
+    "explanation": "Batch Normalization은 미니 배치 단위로 활성화 값을 정규화하여 학습을 안정화합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "모멘텀(Momentum)과 RMSProp의 장점을 결합하여 모델의 학습 속도를 조절하는 가장 널리 쓰이는 최적화 알고리즘은 무엇인가?",
+    "a": "아담",
+    "k": [
+      "아담"
+    ],
+    "explanation": "아담(Adam)은 모멘텀과 RMSProp의 특징을 합쳐 최적화 과정을 효율적으로 개선합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "인공신경망의 비선형성을 보장하기 위해 출력층에 적용하지 않으며 주로 은닉층에서 사용하는 함수는 무엇인가?",
+    "a": "활성화 함수",
+    "k": [
+      "활성화 함수"
+    ],
+    "explanation": "활성화 함수는 신경망에 비선형성을 추가하는 핵심 요소입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "소프트맥스 함수에서 입력값 y1=2, y2=1일 때, 지수 계산(e^2, e^1)을 수행한 뒤 확률값을 구하는 식의 분모에 들어가는 값은 e^2와 무엇을 더한 값인가?",
+    "a": "e^1",
+    "k": [
+      "소프트맥스"
+    ],
+    "explanation": "소프트맥스는 모든 출력 값에 대한 지수 함수의 합으로 나눕니다. 여기서는 e^2 + e^1입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다음 식이 나타내는 학습의 목표는 무엇인가? [W_l ~ N(0, sqrt(2/(n_l + n_{l+1})))]",
+    "a": "Xavier 초기화",
+    "k": [
+      "Xavier 초기화"
+    ],
+    "explanation": "Xavier 초기화는 시그모이드와 같은 함수를 사용할 때 분산을 적절히 유지하기 위한 초기화 방식입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "모델의 일반화 성능을 저하시키는 주된 장애물은 무엇인가?",
+    "a": "Overfitting",
+    "k": [
+      "과적합"
+    ],
+    "explanation": "강의 자료에 따르면 과적합(Overfitting)이 모델 일반화의 주요 장애물입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "앙상블 기법에서 여러 개의 모델을 결합하여 성능을 향상시키는 궁극적인 이유는 모델의 정확도와 어떤 특성을 개선하기 위함인가?",
+    "a": "강건성",
+    "k": [
+      "강건성"
+    ],
+    "explanation": "앙상블 기법은 모델의 성능 향상과 함께 예측의 안정성인 강건성을 확보하기 위해 사용됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론에서 이전 층의 모든 뉴런이 다음 층의 모든 뉴런과 연결되어 있는 구조를 가리키는 용어는 무엇인가?",
+    "a": "전결합",
+    "k": [
+      "전결합"
+    ],
+    "explanation": "전결합(fully connected)은 인접한 층의 모든 뉴런이 서로 연결된 기본적인 다층 퍼셉트론의 구성 형태입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "퍼셉트론에서 입력값 x가 [1, 2]이고 가중치 w가 [3, 4]일 때, 가중 합(w1*x1 + w2*x2)의 값은 얼마인가?",
+    "a": "11",
+    "k": [
+      "퍼셉트론"
+    ],
+    "explanation": "(1 * 3) + (2 * 4) = 3 + 8 = 11입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "학습 데이터셋의 개수가 1000개일 때, 배치 사이즈(Batch size)를 100으로 설정했다면, 1 에포크(Epoch)를 완료하기 위해 필요한 가중치 업데이트 횟수는 몇 번인가?",
+    "a": "10",
+    "k": [
+      "가중치",
+      "업데이트"
+    ],
+    "explanation": "총 데이터 1000개를 배치 사이즈 100으로 나누면 10번의 배치를 수행하게 되므로 10번의 업데이트가 필요합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "회귀 문제에서 실제 타겟값이 5이고 모델의 예측값이 3일 때, 평균 제곱 오차 식의 일부인 (y_n - t_n)^2의 결과값은 무엇인가?",
+    "a": "4",
+    "k": [
+      "평균 제곱 오차"
+    ],
+    "explanation": "(3 - 5)의 제곱은 (-2)의 제곱이므로 4입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "RNN에서 자주 사용되며, 특징 차원을 따라 정규화를 수행하는 기술은 무엇인가?",
+    "a": "Layer Normalization",
+    "k": [
+      "층 정규화"
+    ],
+    "explanation": "층 정규화는 특징 차원 기반 정규화로 RNN 등에 유용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "학습 모델에서 과거 기울기를 이용하여 이동 방향을 수정하는 최적화 기법은 무엇인가?",
+    "a": "Momentum",
+    "k": [
+      "모멘텀"
+    ],
+    "explanation": "Momentum은 과거 기울기를 사용하여 속도를 조절하고 지역 최적점을 피합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론 학습 시 각 층의 가중치를 업데이트하기 위해 손실 함수를 해당 가중치로 편미분한 값을 무엇이라 하는가?",
+    "a": "그래디언트",
+    "k": [
+      "그래디언트"
+    ],
+    "explanation": "손실 함수의 가중치에 대한 편미분 값을 그래디언트(Gradient)라고 하며 이를 이용해 최적화합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "일반적인 신경망 최적화에서 학습률(Learning rate)에 해당하는 기호는 그리스 문자로 무엇인가?",
+    "a": "에타",
+    "k": [
+      "학습률"
+    ],
+    "explanation": "학습률은 일반적으로 그리스 문자 eta(η)로 표기합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "데이터의 평균을 0, 분산을 1로 맞추는 과정으로, 신경망의 안정적인 학습을 위해 데이터를 가공하는 방식을 통칭하는 용어는?",
+    "a": "정규화",
+    "k": [
+      "정규화"
+    ],
+    "explanation": "데이터의 분포를 일정하게 만드는 작업을 정규화(Normalization)라 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "XOR 문제 해결을 위해 단일 퍼셉트론을 여러 층으로 쌓아 구성한 모델의 명칭은 무엇인가?",
+    "a": "다층 퍼셉트론",
+    "k": [
+      "다층 퍼셉트론"
+    ],
+    "explanation": "다층 퍼셉트론은 은닉층을 도입하여 XOR과 같은 비선형 문제도 해결 가능합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "역전파 과정에서 연쇄 법칙을 적용할 때, 특정 층의 출력에 대한 손실 함수의 변화율을 나타내는 값은 무엇인가?",
+    "a": "델타",
+    "k": [
+      "델타"
+    ],
+    "explanation": "오차 역전파에서 델타(delta)는 각 층에서의 그래디언트를 계산하는 핵심 중간값입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "손실 함수를 계산할 때, 회귀(Regression)와 분류(Classification) 문제에서 각각 사용되는 주요 손실 함수를 순서대로 작성하면 무엇인가?",
+    "a": "평균 제곱 오차, 교차 엔트로피",
+    "k": [
+      "평균 제곱 오차",
+      "교차 엔트로피"
+    ],
+    "explanation": "회귀는 평균 제곱 오차, 분류는 교차 엔트로피를 사용하는 것이 표준입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "딥러닝 학습에서 모델이 최적의 성능을 낼 수 있도록 가중치를 조정하는 전반적인 과정을 무엇이라 하는가?",
+    "a": "학습",
+    "k": [
+      "학습"
+    ],
+    "explanation": "가중치를 반복적으로 조정하여 손실을 최소화하는 과정을 학습(Learning)이라 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "신경망에서 가중치를 업데이트할 때 데이터 전체를 사용하여 한 번에 계산하는 방식의 명칭은?",
+    "a": "풀배치",
+    "k": [
+      "풀배치"
+    ],
+    "explanation": "풀배치는 전체 데이터를 사용하여 정확한 그래디언트를 구하지만 계산량이 많습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론에서 정보가 입력층에서 출력층 방향으로만 전달되는 연산 과정을 무엇이라 하는가?",
+    "a": "순전파",
+    "k": [
+      "순전파"
+    ],
+    "explanation": "순전파는 데이터를 입력받아 가중치 연산을 통해 결과를 내는 과정입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론(MLP)에서 은닉층의 역할과 비선형성이 필요한 이유를 서술하시오.",
+    "a": "다층 퍼셉트론에서 은닉층은 입력과 출력 사이에서 복잡한 데이터 표현을 학습하는 핵심적인 층입니다. 신경망에 비선형성을 보장하는 활성화 함수를 은닉층에 추가함으로써 선형 모델이 해결하지 못하는 XOR과 같은 복잡한 비선형 문제를 해결할 수 있게 됩니다.",
+    "k": [
+      "은닉층",
+      "비선형성",
+      "활성화 함수",
+      "다층 퍼셉트론"
+    ],
+    "explanation": "은닉층을 통해 다층 구조를 형성하고, 비선형 활성화 함수를 사용하여 비선형 데이터를 모델링하는 능력을 갖추게 됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "오차 역전파(Back-propagation)의 과정과 연쇄 법칙(Chain rule)의 상관관계를 설명하시오.",
+    "a": "오차 역전파는 모델의 예측값과 타겟값의 손실을 최소화하기 위한 그래디언트를 계산하는 과정입니다. 이때 손실 함수로부터 각 층의 가중치로 그래디언트를 전파하기 위해 미분의 연쇄 법칙을 사용하여 뒤에서부터 층별로 그래디언트를 효율적으로 계산합니다.",
+    "k": [
+      "오차 역전파",
+      "그래디언트",
+      "연쇄 법칙",
+      "손실 함수"
+    ],
+    "explanation": "오차 역전파는 연쇄 법칙의 합성 함수 미분 원리를 사용하여 각 층의 가중치에 대한 기울기를 단계적으로 구하는 최적화 방법입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "과적합(Overfitting)의 정의와 이를 방지하기 위한 기술적 기법 3가지를 설명하시오.",
+    "a": "과적합은 모델이 학습 데이터에 지나치게 적합되어 새로운 데이터에 대한 일반화 성능이 저하되는 현상입니다. 이를 해결하기 위해 많은 양의 빅데이터 확보, 모델의 복잡도를 제어하는 정규화(Regularization) 적용, 여러 모델을 결합하여 성능을 안정화하는 앙상블(Ensembling) 기법을 사용합니다.",
+    "k": [
+      "과적합",
+      "빅데이터",
+      "정규화",
+      "앙상블"
+    ],
+    "explanation": "과적합은 학습 데이터에 편향되는 것을 의미하며 이를 방지하기 위해 데이터 확보, 정규화, 앙상블을 고려합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "Xavier 초기화와 He 초기화의 차이점 및 각 방식이 최적화된 상황을 기술하시오.",
+    "a": "Xavier 초기화는 시그모이드나 tanh와 같은 활성화 함수를 사용할 때 분산을 일관되게 유지하도록 설계되었습니다. 반면, He 초기화는 ReLU 함수 사용 시 발생하는 뉴런의 죽음 문제를 해결하기 위해 고안되었으며 ReLU에 적합한 가중치 분산을 유지합니다.",
+    "k": [
+      "Xavier 초기화",
+      "He 초기화",
+      "시그모이드",
+      "ReLU"
+    ],
+    "explanation": "두 초기화 방식은 활성화 함수의 미분 특성에 따라 가중치의 분산을 다르게 조절하여 학습의 효율성을 결정합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "최적화 변형 기법 중 아담(Adam)이 기존의 Momentum과 RMSProp을 결합함으로써 얻는 장점을 기술하시오.",
+    "a": "아담은 가중치 업데이트 시 과거 그래디언트의 관성을 활용하는 Momentum 기법과 그래디언트의 제곱 크기를 반영하여 학습률을 조정하는 RMSProp의 장점을 모두 포함합니다. 이를 통해 학습 속도를 가속화하면서 각 매개변수마다 적응형 학습률을 적용하여 안정적인 수렴을 유도합니다.",
+    "k": [
+      "아담",
+      "모멘텀",
+      "RMSProp",
+      "학습률"
+    ],
+    "explanation": "아담은 Momentum과 RMSProp의 특징을 모두 사용하여 수렴의 효율성과 정확도를 동시에 확보합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "배치 정규화(Batch Normalization)가 딥러닝 학습에 기여하는 원리와 목적을 설명하시오.",
+    "a": "배치 정규화는 각 층의 활성화 값을 미니 배치 단위로 평균 0, 분산 1이 되도록 정규화하는 기법입니다. 이를 통해 학습 과정에서 활성화 값의 분포가 변하는 내부 공변량 변화 문제를 해결하여 신경망 학습을 안정시키고 학습 속도를 향상시킵니다.",
+    "k": [
+      "배치 정규화",
+      "학습 속도",
+      "내부 공변량 변화"
+    ],
+    "explanation": "배치 정규화는 활성화 분포를 일정하게 유지하여 깊은 신경망에서도 학습이 잘 이루어지도록 돕습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "인공신경망에서 손실 함수의 선택이 회귀와 분류 문제에서 달라지는 이유를 설명하시오.",
+    "a": "회귀 문제에서는 연속적인 수치를 예측하므로 예측값과 타겟값 사이의 제곱 오차인 평균 제곱 오차를 사용하여 거리를 최소화합니다. 반면 분류 문제는 클래스 확률을 다루므로 확률 분포 차이를 계산하는 교차 엔트로피를 사용하여 모델의 정확도를 평가합니다.",
+    "k": [
+      "손실 함수",
+      "회귀",
+      "분류",
+      "평균 제곱 오차",
+      "교차 엔트로피"
+    ],
+    "explanation": "문제 유형에 따라 데이터의 성격이 다르므로 예측 방식에 최적화된 오차 계산 지표가 필요합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "순전파(Forward operation)의 과정에서 행렬-벡터 형태를 사용하는 이유를 서술하시오.",
+    "a": "순전파는 입력된 데이터를 은닉층을 거쳐 출력층으로 전달하는 과정입니다. 이 과정에서 행렬-벡터 형태를 사용하면 다수의 뉴런 연산을 병렬로 처리할 수 있어 연산 효율이 극대화되고 코드를 간결하게 작성할 수 있다는 장점이 있습니다.",
+    "k": [
+      "순전파",
+      "행렬",
+      "연산 효율"
+    ],
+    "explanation": "행렬 연산을 통해 대규모 신경망 데이터를 고속으로 처리하는 것은 현대 딥러닝 구현의 핵심입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론의 학습이 선형 모델에 비해 우수한 점과 구조적 한계를 기술하시오.",
+    "a": "다층 퍼셉트론은 은닉층을 두어 비선형 데이터의 표현이 가능하다는 점에서 선형 모델보다 우수합니다. 하지만, 층이 깊어질수록 역전파 시 그래디언트가 소실되거나 과적합될 가능성이 높고 계산량이 선형 모델에 비해 매우 크다는 구조적 한계가 존재합니다.",
+    "k": [
+      "다층 퍼셉트론",
+      "비선형 데이터",
+      "과적합",
+      "그래디언트"
+    ],
+    "explanation": "다층 퍼셉트론은 표현력이 강하지만 깊은 층으로 인한 학습 난이도와 과적합 문제가 동시에 발생합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "확률적 경사 하강법(SGD)을 사용할 때 미니 배치 단위로 학습하는 것이 왜 효율적인지 설명하시오.",
+    "a": "전체 데이터를 사용하는 풀배치는 연산량이 매우 크고 메모리 제약이 있습니다. 반면, 미니 배치 단위로 데이터를 나누어 학습하면 적은 메모리로도 빈번하게 가중치를 업데이트할 수 있어 학습 효율성이 높아지며 지역 최적점을 빠져나가는 데 도움을 줍니다.",
+    "k": [
+      "확률적 경사 하강법",
+      "미니 배치",
+      "학습 효율"
+    ],
+    "explanation": "미니 배치는 계산의 효율성과 최적화의 속도를 동시에 고려한 절충안입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "퍼셉트론이 비선형 문제를 해결하지 못하는 근본적인 이유와 MLP가 이를 해결하는 방식을 설명하시오.",
+    "a": "단일 퍼셉트론은 단 하나의 선형 결정 경계만을 생성하므로 데이터를 나누는 결정 영역이 선형으로 제한됩니다. MLP는 은닉층을 통해 데이터를 고차원으로 변환하고 여러 결정 경계를 생성하여 비선형적인 결정 영역을 표현할 수 있으므로 비선형 문제 해결이 가능합니다.",
+    "k": [
+      "퍼셉트론",
+      "비선형",
+      "MLP",
+      "결정 영역"
+    ],
+    "explanation": "MLP는 선형 연산의 조합과 비선형 활성화 함수를 통해 데이터의 복잡한 구조를 학습합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론 구조에서의 가중치 업데이트 규칙(w <- w - η*∇L)의 의미를 구성 요소별로 풀이하시오.",
+    "a": "이 식에서 η는 학습 속도를 제어하는 학습률이며, ∇L은 손실 함수의 변화율인 그래디언트입니다. 이 규칙은 손실을 줄이는 방향인 그래디언트의 반대 방향으로 가중치를 학습률만큼 이동시켜 모델을 최적화한다는 의미를 담고 있습니다.",
+    "k": [
+      "가중치",
+      "학습률",
+      "그래디언트",
+      "손실 함수"
+    ],
+    "explanation": "이 규칙은 경사 하강법의 기본 원리이며, 학습률을 조절하여 수렴의 안정성을 확보합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "RMSProp과 AdaGrad의 차이점을 설명하고 RMSProp이 왜 성능이 더 나은지 기술하시오.",
+    "a": "AdaGrad는 학습 과정에서 과거 그래디언트의 제곱합을 누적하여 학습률을 점진적으로 줄입니다. 이로 인해 학습이 오래될수록 학습률이 0에 가까워져 학습이 멈추는 문제가 발생합니다. 반면, RMSProp은 지수 이동 평균을 사용하여 최근 그래디언트 정보에 가중치를 두어 학습률이 급격히 낮아지는 문제를 방지합니다.",
+    "k": [
+      "RMSProp",
+      "AdaGrad",
+      "학습률",
+      "지수 이동 평균"
+    ],
+    "explanation": "RMSProp은 지수 이동 평균을 통해 AdaGrad의 단점인 학습률 고갈을 해결합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "앙상블(Ensembling) 기법이 딥러닝 모델의 강건성에 미치는 영향을 기술하시오.",
+    "a": "앙상블은 여러 모델의 예측을 결합하여 개별 모델이 가질 수 있는 편향과 분산을 줄입니다. 이로 인해 모델의 예측 오차가 평균적으로 보정되어 일반화 성능이 향상되고, 특정 데이터에 대한 과민 반응을 막아 예측의 강건성을 크게 개선합니다.",
+    "k": [
+      "앙상블",
+      "강건성",
+      "일반화 성능",
+      "오차"
+    ],
+    "explanation": "다양한 모델의 결합은 개별 모델의 불안정한 예측을 상호 보완하여 전체적 성능을 높입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "층 정규화(Layer Normalization)가 미니 배치 크기에 영향을 받지 않는 이유를 설명하시오.",
+    "a": "배치 정규화는 배치 내 모든 샘플의 통계량을 사용하므로 배치 크기가 작으면 정확한 통계량을 구하기 어렵습니다. 반면 층 정규화는 개별 데이터 샘플의 특징 차원을 따라 정규화를 수행하므로 미니 배치 크기와 상관없이 안정적으로 통계량을 계산할 수 있습니다.",
+    "k": [
+      "층 정규화",
+      "배치 정규화",
+      "통계량",
+      "배치 크기"
+    ],
+    "explanation": "층 정규화는 데이터 개별 샘플 내부의 통계를 사용하므로 배치 사이즈의 영향을 받지 않습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "입력값 x와 가중치 w의 내적(Dot product)이 퍼셉트론의 net value에 기여하는 바를 기술하시오.",
+    "a": "내적 연산은 각 입력 특성이 모델 결과에 미치는 중요도를 가중치와 곱하여 결합하는 것입니다. 이를 통해 모델은 입력 벡터의 어느 부분이 결정 경계에 더 큰 영향을 주는지 파악할 수 있으며, 이 합계값이 임계값과 비교되어 분류의 기준이 됩니다.",
+    "k": [
+      "입력값",
+      "가중치",
+      "내적",
+      "결정 경계"
+    ],
+    "explanation": "내적 연산은 다변량 입력 데이터를 하나의 가중치 합으로 투영하여 의사결정을 가능하게 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론에서 초기화가 convergence(수렴)에 중요한 이유를 설명하시오.",
+    "a": "초기 가중치가 너무 크거나 작으면 순전파 시 활성화 값이 발산하거나 사라져 학습이 제대로 이루어지지 않습니다. 적절한 초기화는 활성화 값이 적절한 분포를 갖게 하여 역전파 시 그래디언트가 안정적으로 흐르게 하며 최종적으로 모델이 빠르게 수렴하도록 돕습니다.",
+    "k": [
+      "가중치",
+      "수렴",
+      "활성화 값",
+      "그래디언트"
+    ],
+    "explanation": "학습 초기의 가중치 분포는 전체적인 학습의 안정성과 속도를 결정짓는 필수 요인입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "소프트맥스 함수가 다중 분류 출력층에서 확률분포를 생성하는 원리를 기술하시오.",
+    "a": "소프트맥스는 각 클래스 출력값의 지수 함수(e^y)를 계산하여 항상 양수임을 보장합니다. 이후 모든 출력 지수 함수의 합으로 개별 값을 나누어 결과값의 총합이 1이 되도록 정규화하여 각 클래스에 대한 상대적 확률을 출력합니다.",
+    "k": [
+      "소프트맥스",
+      "확률 분포",
+      "정규화",
+      "클래스"
+    ],
+    "explanation": "소프트맥스는 출력값들을 0에서 1 사이의 값으로 변환하고 총합을 1로 만듦으로써 확률적 해석을 가능하게 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론의 각 층이 갖는 가중치 행렬(W)의 역할과 차원을 결정하는 기준은 무엇인가?",
+    "a": "가중치 행렬은 입력 데이터를 변환하여 다음 층으로 넘겨주는 선형 변환을 수행합니다. 행렬의 차원은 이전 층의 뉴런 수(입력)와 현재 층의 뉴런 수(출력)를 곱한 형태로 결정되며, 이 차원이 클수록 모델의 표현력이 증가합니다.",
+    "k": [
+      "가중치 행렬",
+      "입력",
+      "출력",
+      "뉴런 수"
+    ],
+    "explanation": "가중치 행렬은 층 사이의 정보 흐름을 조절하는 행렬곱을 담당하며 연결 구조를 정의합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "딥러닝 모델에서 활성화 함수의 비선형성 도입이 없었다면 발생할 논리적 결과는 무엇인가?",
+    "a": "활성화 함수가 없다면 아무리 많은 층을 쌓아도 가중치 행렬곱의 연속은 다시 하나의 선형 행렬곱으로 귀결됩니다. 즉, 비선형성 없이는 전체 신경망이 하나의 거대한 선형 모델로 작동하게 되어 선형적인 데이터 패턴만 학습할 수 있게 됩니다.",
+    "k": [
+      "비선형성",
+      "활성화 함수",
+      "선형 모델"
+    ],
+    "explanation": "층을 깊게 쌓는 것의 가치는 비선형 활성화 함수를 통해 각 층마다 차원을 비선형으로 뒤틀어 학습 능력을 키우는 데 있습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "역전파(Back-propagation) 계산 시 레이어별 기울기를 구하기 위해 사용하는 수학적 규칙은 무엇인가?",
+    "a": "Chain rule",
+    "k": [
+      "역전파",
+      "연쇄 법칙"
+    ],
+    "explanation": "역전파는 레이어별로 이동하며 기울기를 계산할 때 Chain rule(연쇄 법칙)을 활용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "Adam 최적화 기법은 모멘텀(Momentum)과 RMSProp을 결합한 방식이다.",
+    "a": "O",
+    "k": [
+      "Adam",
+      "모멘텀"
+    ],
+    "explanation": "Adam은 Momentum과 RMSProp 최적화 기법을 결합하여 가중치를 업데이트하는 효율적인 방식입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "배치 정규화(Batch Normalization)에 대한 설명으로 옳은 것은?\n1. 모델의 수렴을 늦춘다.\n2. 내부 공변량 변화(Internal Covariate Shift)를 해결한다.\n3. 특징 차원(Feature dimension)을 따라 정규화한다.\n4. 소규모 데이터에만 유용하다.",
+    "a": "2",
+    "k": [
+      "배치 정규화",
+      "공변량 변화"
+    ],
+    "explanation": "배치 정규화는 미니 배치의 활성화 값을 정규화하여 내부 공변량 변화를 완화하고 학습 안정성을 높입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "스토캐스틱 경사 하강법(SGD, Stochastic Gradient Descent)은 전체 데이터셋을 사용한 경사 하강법보다 일반적으로 효율적이다.",
+    "a": "O",
+    "k": [
+      "경사 하강법",
+      "효율성"
+    ],
+    "explanation": "SGD는 미니 배치를 사용하여 계산하므로 전체 데이터셋을 사용하는 풀 배치(Full-batch) 방식보다 일반적으로 효율적인 것으로 간주됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다중 클래스 분류(Multi-class classification)에서 출력층에 사용하는 활성화 함수의 이름은 무엇인가?",
+    "a": "Softmax",
+    "k": [
+      "소프트맥스",
+      "분류"
+    ],
+    "explanation": "강의 자료에 따르면 다중 클래스 분류 시에는 Softmax 활성화 함수를 사용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "AdaGrad는 모든 매개변수에 대해 동일한 학습률을 고정적으로 적용한다.",
+    "a": "X",
+    "k": [
+      "AdaGrad",
+      "학습률"
+    ],
+    "explanation": "AdaGrad는 과거 기울기를 기반으로 각 매개변수에 대해 적응형 학습률(Adapts learning rate)을 적용하는 기법입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "과적합(Overfitting)을 방지하기 위한 기술에는 정규화(Regularization)와 앙상블(Ensembling)이 포함된다.",
+    "a": "O",
+    "k": [
+      "과적합",
+      "정규화",
+      "앙상블"
+    ],
+    "explanation": "강의 자료에서 과적합을 방지하는 주요 기술로 빅데이터, 정규화(L1/L2), 앙상블을 명시하고 있습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "가중치(Weights)의 초깃값 설정은 학습 성능과 수렴에 영향을 미치지 않는다.",
+    "a": "X",
+    "k": [
+      "가중치",
+      "성능"
+    ],
+    "explanation": "가중치 초기화는 학습 성능과 수렴 속도에 결정적인 영향을 미치는 중요한 단계입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "ox",
+    "q": "비선형 모델은 비선형 데이터를 선형 데이터로 변환하여 처리한다.",
+    "a": "O",
+    "k": [
+      "비선형 모델",
+      "변환"
+    ],
+    "explanation": "비선형 모델은 비선형 데이터를 다루기 위해 이를 선형 데이터 형태로 변환한 뒤 회귀나 분류를 수행합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "다음 중 다층 퍼셉트론(MLP)의 학습과 관련된 설명으로 가장 적절한 것은?\n1. 오차 역전파는 순방향 계산 시에만 사용된다.\n2. 손실 함수로 회귀 문제에서는 평균 제곱 오차를 사용한다.\n3. 분류 문제의 목적은 모델의 손실을 최대화하는 것이다.\n4. 기울기는 연쇄 법칙을 통해 순방향으로 전달된다.",
+    "a": "2",
+    "k": [
+      "회귀",
+      "손실 함수",
+      "평균 제곱 오차"
+    ],
+    "explanation": "회귀 문제에서는 평균 제곱 오차(Mean Squared Error)를 손실 함수로 사용합니다. 역전파는 역방향으로 전달되며, 목적은 손실 최소화입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "다음 중 최적화 기법에 대한 설명으로 옳은 것은?\n1. 모멘텀은 과거 기울기를 무시한다.\n2. RMSProp은 AdaGrad의 약점을 보완하기 위해 지수 평활화를 사용한다.\n3. 풀 배치 경사 하강법은 매 단계마다 데이터 하나만을 사용한다.\n4. Adam은 Momentum만을 단독으로 사용하는 기법이다.",
+    "a": "2",
+    "k": [
+      "RMSProp",
+      "AdaGrad",
+      "지수 평활화"
+    ],
+    "explanation": "RMSProp은 AdaGrad의 학습률 감소 문제를 해결하기 위해 지수 평활화를 적용한 최적화 기법입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "ReLU 활성화 함수의 Dying ReLU 문제를 해결하기 위해 고안된 초기화 기법은 무엇인가?",
+    "a": "He Initialization",
+    "k": [
+      "He 초기화",
+      "ReLU"
+    ],
+    "explanation": "He 초기화는 ReLU 활성화 함수에 맞게 설계되었으며 Dying ReLU 문제를 해결하기 위해 사용됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "다음 중 과적합(Overfitting)을 방지하기 위한 기법이 아닌 것은?\n1. 빅데이터(Big Data)\n2. 정규화(Regularization)\n3. 앙상블(Ensembling)\n4. 데이터 축소(Data Reduction)",
+    "a": "4",
+    "k": [
+      "과적합",
+      "빅데이터",
+      "정규화"
+    ],
+    "explanation": "강의 자료에서 명시된 과적합 방지 기법은 빅데이터, 정규화, 앙상블입니다. 데이터 축소는 해당 목록에 포함되지 않습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "기초 논리 게이트에 관한 설명 중 옳은 것은?\n1. 퍼셉트론은 모든 비선형 문제를 해결할 수 있다.\n2. 퍼셉트론은 XOR 게이트 모델링이 가능하다.\n3. 퍼셉트론은 OR 게이트 모델링이 가능하다.\n4. XOR 게이트는 선형 분리 가능한 문제이다.",
+    "a": "3",
+    "k": [
+      "퍼셉트론",
+      "논리 게이트",
+      "OR"
+    ],
+    "explanation": "퍼셉트론은 OR나 NAND 같은 기본 게이트는 모델링할 수 있으나, XOR와 같은 비선형 문제는 해결할 수 없습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "이진 분류(Binary classification)에서 주로 출력층에 사용하는 활성화 함수의 이름은 무엇인가?",
+    "a": "Sigmoid",
+    "k": [
+      "이진 분류",
+      "시그모이드"
+    ],
+    "explanation": "이진 분류 시 출력층의 활성화 함수로는 시그모이드가 주로 사용됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "다음 중 경사 하강법(Gradient Descent)의 종류에 대한 설명으로 옳은 것은?\n1. Full-batch GD는 수렴을 보장하지 않는다.\n2. SGD는 효율성을 위해 보통 미니 배치를 사용한다.\n3. 업데이트 규칙은 학습률을 무시한다.\n4. 가중치는 업데이트하지 않는다.",
+    "a": "2",
+    "k": [
+      "경사 하강법",
+      "SGD",
+      "효율성"
+    ],
+    "explanation": "SGD는 효율성을 위해 전체 데이터가 아닌 미니 배치를 사용하여 파라미터를 업데이트하는 경사 하강법입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "다층 퍼셉트론의 Forward Operation에 대한 설명으로 옳은 것은?\n1. Matrix-Vector 형태를 사용하지 않는다.\n2. 가중치(Weight)와 입력값의 합에 bias를 더한다.\n3. 활성화 함수는 사용하지 않는다.\n4. 입력값은 직접 출력으로 나간다.",
+    "a": "2",
+    "k": [
+      "가중치",
+      "입력값",
+      "bias"
+    ],
+    "explanation": "MLP의 순방향 연산은 입력값과 가중치를 가중 평균한 값에 bias를 더한 뒤 활성화 함수를 통과시키는 과정을 거칩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "시그모이드(Sigmoid) 또는 tanh 활성화 함수에 적합하도록 고안된 초기화 기법은 무엇인가?",
+    "a": "Xavier Initialization",
+    "k": [
+      "Xavier 초기화",
+      "시그모이드"
+    ],
+    "explanation": "Xavier(Glorot) 초기화는 시그모이드/tanh 계열 함수에 적합하게 분산을 조절합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "인공신경망의 breakthrough와 가장 관련이 깊은 것은?\n1. 단일 퍼셉트론\n2. 인공지능(AI)의 선형 모델\n3. 다층 퍼셉트론(MLP)\n4. 로지스틱 회귀",
+    "a": "3",
+    "k": [
+      "인공신경망",
+      "다층 퍼셉트론"
+    ],
+    "explanation": "다층 퍼셉트론은 신경망과 현대 딥러닝의 시작점이며, 인공지능 분야의 거대한 전환점을 만들었습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "layer normalization의 특징으로 알맞은 것은?\n1. 미니 배치 기반 정규화\n2. 특징 차원(Feature dimension) 기반 정규화\n3. RNN에 비효율적\n4. 내부 공변량 변화 문제만 해결",
+    "a": "2",
+    "k": [
+      "층 정규화",
+      "특징"
+    ],
+    "explanation": "층 정규화는 특징 차원을 따라 정규화를 수행하며, 주로 RNN이나 작은 배치 사이즈에서 효과적입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "multiple",
+    "q": "최적화 변형 기법 중 Momentum의 주요 목적은?\n1. 지수 평활화\n2. 지역 최적점(Local optima) 회피\n3. 학습률 고정\n4. 연쇄 법칙 제거",
+    "a": "2",
+    "k": [
+      "모멘텀",
+      "지역 최적점"
+    ],
+    "explanation": "Momentum은 과거의 기울기를 이용하여 가속함으로써 지역 최적점에 빠지는 것을 방지하는 목적을 가집니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "퍼셉트론에서 입력값 $x$가 $1$, 가중치 $w$가 $2$, 편향(Bias) $w_0$가 $0$일 때, 순수 입력값(Net value)은 얼마인가?",
+    "a": "2",
+    "k": [
+      "퍼셉트론",
+      "가중치"
+    ],
+    "explanation": "순수 입력값(net value)은 $\\sum (w_i x_i) + w_0$이므로, $2 * 1 + 0 = 2$입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "회귀 문제에서 타겟과 예측값 사이의 거리를 측정하기 위해 사용하는 손실 함수의 이름은 무엇인가?",
+    "a": "Mean Squared Error",
+    "k": [
+      "회귀",
+      "손실 함수"
+    ],
+    "explanation": "강의 자료에서 회귀 모델의 목적 함수로 명시된 것은 Mean Squared Error입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "퍼셉트론이 해결할 수 없는 대표적인 비선형 문제 게이트의 이름은 무엇인가?",
+    "a": "XOR",
+    "k": [
+      "퍼셉트론",
+      "XOR"
+    ],
+    "explanation": "퍼셉트론은 선형 모델로, 비선형 문제인 XOR 게이트를 해결할 수 없습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "인공신경망의 가중치를 업데이트할 때 사용하는 기울기 기반의 최적화 알고리즘의 일반적인 이름은 무엇인가?",
+    "a": "Gradient Descent",
+    "k": [
+      "경사 하강법"
+    ],
+    "explanation": "학습 모델의 파라미터를 최적화하기 위해 경사 하강법(Gradient Descent)을 사용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "인공지능 모델에서 복수의 모델을 결합하여 강건성을 높이는 기술의 이름은 무엇인가?",
+    "a": "Ensembling",
+    "k": [
+      "앙상블"
+    ],
+    "explanation": "강의 자료에서 과적합을 방지하고 정확도/강건성을 높이기 위해 여러 모델을 결합하는 것을 앙상블(Ensembling)이라고 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP 학습 효율을 위해 미니 배치를 사용하는 경사 하강법의 이름은?",
+    "a": "Stochastic Gradient Descent",
+    "k": [
+      "경사 하강법",
+      "SGD"
+    ],
+    "explanation": "효율성을 위해 미니 배치를 활용하는 방식은 Stochastic Gradient Descent입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "RMSProp은 어떤 최적화 기법의 약점을 보완하기 위해 만들어졌는가?",
+    "a": "AdaGrad",
+    "k": [
+      "RMSProp",
+      "AdaGrad"
+    ],
+    "explanation": "강의 자료에 따르면 RMSProp은 AdaGrad의 학습률 감소 약점을 보완하기 위해 고안되었습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "Adam 최적화 기법은 Momentum과 어떤 또 다른 최적화 기법의 결합인가?",
+    "a": "RMSProp",
+    "k": [
+      "Adam",
+      "모멘텀",
+      "RMSProp"
+    ],
+    "explanation": "Adam은 Momentum과 RMSProp 최적화 기법의 장점을 결합한 알고리즘입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "데이터의 비선형 문제를 해결하기 위해 데이터를 어떻게 변환하는가?",
+    "a": "Linear data",
+    "k": [
+      "비선형 모델",
+      "선형 데이터"
+    ],
+    "explanation": "비선형 모델은 비선형 데이터를 선형 데이터로 변환한 후 처리합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP 학습 과정에서 업데이트되는 가중치의 변수 명칭은 무엇인가?",
+    "a": "w",
+    "k": [
+      "가중치"
+    ],
+    "explanation": "학습 업데이트 식에서 가중치는 $w$로 표현됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "분류(Classification) 문제에서 예측과 타겟 간의 손실을 측정하는 함수는 무엇인가?",
+    "a": "Cross Entropy",
+    "k": [
+      "분류",
+      "교차 엔트로피"
+    ],
+    "explanation": "강의 자료에서 분류 모델의 목적 함수로 명시된 것은 Cross Entropy입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "경사 하강법에서 학습률과 기울기를 곱한 값을 현재의 무엇에서 빼는가?",
+    "a": "Weight",
+    "k": [
+      "가중치",
+      "경사 하강법"
+    ],
+    "explanation": "업데이트 규칙은 $w \\leftarrow w - \\eta \\nabla L(x_n, w)$로, 가중치에서 학습률과 기울기의 곱을 뺍니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "다층 퍼셉트론에서 이전 층의 출력값이 다음 층의 무엇이 되는가?",
+    "a": "Input",
+    "k": [
+      "입력값"
+    ],
+    "explanation": "다층 퍼셉트론은 입력값과 이전 층의 출력을 가중 평균하여 다음 단계의 입력을 만듭니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP 학습 시 기울기를 계산할 때 사용하는, 층을 거꾸로 거슬러 올라가는 알고리즘의 이름은?",
+    "a": "Back-propagation",
+    "k": [
+      "역전파"
+    ],
+    "explanation": "오차를 역으로 전달하며 기울기를 계산하는 과정을 역전파(Back-propagation)라고 합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "인공신경망은 현대의 어떤 기술 분야를 이끄는 핵심인가?",
+    "a": "Deep learning",
+    "k": [
+      "딥러닝"
+    ],
+    "explanation": "ANN은 현대 딥러닝(Deep learning)의 핵심 기술입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "회귀 문제에서 사용하는 Identity 활성화 함수의 역할은 무엇인가?",
+    "a": "Linear",
+    "k": [
+      "회귀",
+      "선형"
+    ],
+    "explanation": "회귀 문제에서는 선형 출력을 위해 Identity 함수를 사용합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP Architecture에서 연산을 위해 사용되는 행렬과 벡터의 형태를 무엇이라 하는가?",
+    "a": "Matrix-Vector",
+    "k": [
+      "다층 퍼셉트론",
+      "행렬"
+    ],
+    "explanation": "MLP의 순방향 연산은 Matrix-Vector form을 통해 효율적으로 계산됩니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "퍼셉트론이 모델링할 수 있는 논리 게이트의 종류 2가지는?",
+    "a": "OR/NAND",
+    "k": [
+      "퍼셉트론",
+      "논리 게이트"
+    ],
+    "explanation": "퍼셉트론은 OR 게이트와 NAND 게이트를 모델링할 수 있습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "Adam 기법에서 학습률을 조정할 때 사용되는 지수 평활화 기법을 포함하는 최적화 도구는?",
+    "a": "RMSProp",
+    "k": [
+      "RMSProp",
+      "지수 평활화"
+    ],
+    "explanation": "RMSProp은 지수 평활화를 사용하여 AdaGrad의 약점을 보완한 최적화 도구입니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "short",
+    "q": "MLP 모델의 깊이가 깊어짐에 따라 레이어 간 전달되는 것은 무엇인가?",
+    "a": "Error",
+    "k": [
+      "역전파",
+      "오차"
+    ],
+    "explanation": "역전파는 모델의 오차(Error)를 거꾸로 전달하며 최적화를 수행합니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론(MLP)의 학습 과정에서의 역전파(Back-propagation)의 역할을 연쇄 법칙(Chain rule)과 손실 함수(Loss function)의 관점에서 설명하시오.",
+    "a": "역전파는 모델의 예측값과 타겟 사이의 손실 함수 값을 최소화하기 위한 과정입니다. 연쇄 법칙을 사용하여 레이어별로 역방향으로 이동하며 기울기를 계산하고, 이 기울기를 통해 가중치를 최적화합니다.",
+    "k": [
+      "역전파",
+      "손실 함수",
+      "연쇄 법칙",
+      "가중치",
+      "기울기"
+    ],
+    "explanation": "학습 과정에서의 오차 계산과 이를 통한 가중치 조정 과정을 중심으로 서술했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "퍼셉트론이 비선형 데이터 문제를 해결하기 위해 다층 퍼셉트론으로 발전해야 했던 이유와 그 구조적 차이를 설명하시오.",
+    "a": "단일 퍼셉트론은 선형 모델로서 XOR과 같은 비선형 문제를 해결하지 못합니다. 다층 퍼셉트론은 은닉층을 도입하여 비선형 데이터를 다루고, 비선형 모델로 변환하여 학습할 수 있는 구조적 이점을 갖습니다.",
+    "k": [
+      "퍼셉트론",
+      "비선형",
+      "다층 퍼셉트론",
+      "은닉층",
+      "선형 모델"
+    ],
+    "explanation": "단일 퍼셉트론의 선형적 한계와 MLP의 다층 구조를 통한 비선형성 극복 과정을 다루었습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "학습 효율과 모델의 수렴 속도를 높이기 위한 배치 정규화(Batch Normalization)의 원리를 내부 공변량 변화 해결 측면에서 설명하시오.",
+    "a": "배치 정규화는 미니 배치 내의 활성화 값을 정규화함으로써 학습 과정에서의 내부 공변량 변화를 방지합니다. 이는 모델의 안정성을 높이고 더 높은 학습률 사용을 가능하게 하여 수렴 속도를 가속화합니다.",
+    "k": [
+      "배치 정규화",
+      "학습률",
+      "수렴",
+      "공변량 변화",
+      "활성화 값"
+    ],
+    "explanation": "배치 정규화가 어떻게 내부 공변량 변화를 해결하여 모델 학습 안정성과 속도를 개선하는지 설명했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "가중치 초기화 기법인 Xavier 초기화와 He 초기화의 차이를 활성화 함수 선택의 관점에서 논하시오.",
+    "a": "Xavier 초기화는 분산을 일정하게 유지하기 위해 sigmoid나 tanh 활성화 함수를 사용하는 모델에 적합합니다. 반면, He 초기화는 ReLU 활성화 함수의 특성에 맞춰 고안되었으며 특히 Dying ReLU 문제를 해결하기 위해 필수적입니다.",
+    "k": [
+      "가중치",
+      "초기화",
+      "Xavier 초기화",
+      "He 초기화",
+      "ReLU"
+    ],
+    "explanation": "각 초기화 기법의 목적과 적합한 활성화 함수 대응 관계를 명확히 했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "과적합(Overfitting)을 방지하기 위한 일반화 기술인 정규화(Regularization)와 앙상블(Ensembling)의 개념을 정의하고 그 역할을 설명하시오.",
+    "a": "정규화는 가중치의 크기를 제한하거나 패널티를 주는 L1/L2 기법을 통해 모델 복잡도를 조절하는 기술입니다. 앙상블은 여러 개의 모델을 조합하여 특정 모델의 예측 오류를 보완하고 전체적인 강건성과 정확도를 향상합니다.",
+    "k": [
+      "과적합",
+      "정규화",
+      "앙상블",
+      "일반화",
+      "강건성"
+    ],
+    "explanation": "두 기술의 목적을 정의하고 일반화 성능 향상에 어떻게 기여하는지 서술했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론의 학습을 위한 최적화 기법 중 Adam 알고리즘의 작동 방식과 그것이 Momentum과 RMSProp의 결합이라 불리는 이유를 설명하시오.",
+    "a": "Adam 알고리즘은 가중치 업데이트 시 Momentum의 관성 모멘텀과 RMSProp의 적응형 학습률 조정을 동시에 반영합니다. 모멘텀은 지역 최적점을 회피하도록 돕고, RMSProp은 학습률을 효과적으로 조절하여 수렴 속도를 높입니다.",
+    "k": [
+      "Adam",
+      "모멘텀",
+      "RMSProp",
+      "학습률",
+      "최적화"
+    ],
+    "explanation": "Adam이 두 가지 최적화 기법의 장점을 결합하여 파라미터 업데이트를 어떻게 최적화하는지 설명했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "MLP에서의 순방향 연산(Inference)에서 Matrix-Vector form이 왜 사용되는지 계산 효율성 측면에서 설명하시오.",
+    "a": "Matrix-Vector 형태를 사용하면 다수의 가중치와 입력 데이터를 동시에 처리할 수 있습니다. 반복문을 사용하는 개별 연산보다 행렬 연산을 활용하는 병렬 처리가 가능해져 연산 속도와 계산 효율성이 크게 향상됩니다.",
+    "k": [
+      "순방향",
+      "효율성",
+      "행렬",
+      "병렬 처리",
+      "계산"
+    ],
+    "explanation": "개별 연산 대비 Matrix-Vector 연산이 가지는 행렬 계산의 이점을 서술했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "분류 문제와 회귀 문제에서 사용되는 손실 함수의 차이점과 모델이 출력하는 활성화 함수의 연결 고리에 대해 설명하시오.",
+    "a": "분류 문제는 예측 결과의 확률 분포를 위해 Cross Entropy를 손실 함수로 사용하며, 이진은 Sigmoid, 다중 클래스는 Softmax를 출력 활성화 함수로 씁니다. 회귀 문제는 수치를 직접 예측하므로 Mean Squared Error를 사용하고 Identity 활성화 함수를 통해 선형 값을 출력합니다.",
+    "k": [
+      "분류",
+      "회귀",
+      "손실 함수",
+      "활성화 함수",
+      "확률 분포"
+    ],
+    "explanation": "문제 유형에 따라 손실 함수와 활성화 함수가 어떻게 짝을 이루어 사용되는지 비교했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "인공신경망 학습에서 데이터 정규화가 중요한 이유를 Batch Normalization과 Layer Normalization의 비교를 통해 설명하시오.",
+    "a": "데이터 정규화는 학습 안정성과 수렴 속도를 결정짓는 필수 요소입니다. Batch Normalization은 미니 배치 단위로 통계량을 추출하여 내부 공변량 변화를 막고, Layer Normalization은 특징 차원을 기준으로 하여 배치 크기와 관계없이 안정적인 학습을 지원합니다.",
+    "k": [
+      "데이터",
+      "정규화",
+      "배치 정규화",
+      "층 정규화",
+      "안정성"
+    ],
+    "explanation": "두 정규화 방식의 작동 범위와 안정성 기여 방법을 대조하여 설명했습니다."
+  },
+  {
+    "chapter": "5_multi-layer perceptron",
+    "type": "essay",
+    "q": "다층 퍼셉트론을 처음 학습하는 학생을 위해 '가중치 업데이트'의 전반적인 메커니즘을 요약하여 설명하시오.",
+    "a": "학습은 데이터를 넣어 결과를 예측하는 순방향 연산, 실제값과 예측값의 오차를 계산하는 손실 함수, 그리고 역전파를 통해 기울기를 구해 가중치를 수정하는 순서로 진행됩니다. 이 과정을 반복하며 기울기를 최소화하는 방향으로 최적의 가중치를 찾아갑니다.",
+    "k": [
+      "가중치",
+      "순방향",
+      "손실 함수",
+      "역전파",
+      "최적화"
+    ],
+    "explanation": "모델 학습의 기본 흐름을 학생이 이해하기 쉽도록 단계별로 요약했습니다."
+  }
+]
