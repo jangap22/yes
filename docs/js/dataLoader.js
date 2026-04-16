@@ -1,5 +1,5 @@
-function toAbsoluteUrl(path) {
-  return new URL(path, window.location.href).toString();
+function toDataUrl(path) {
+  return new URL(`../data/${path}`, import.meta.url).toString();
 }
 
 function normalizeHref(href, baseUrl) {
@@ -30,7 +30,7 @@ export const QUESTION_SET_LABELS = {
 };
 
 async function fetchDirectoryDocument(path) {
-  const response = await fetch(path);
+  const response = await fetch(toDataUrl(path));
   if (!response.ok) {
     throw new Error(`${path} 경로를 읽지 못했습니다.`);
   }
@@ -48,9 +48,9 @@ function collectDirectoryLinks(documentNode, baseUrl) {
 }
 
 async function discoverSubjectDirectories() {
-  const basePath = "./data/subjects/";
+  const basePath = "subjects/";
   const documentNode = await fetchDirectoryDocument(basePath);
-  const baseUrl = toAbsoluteUrl(basePath);
+  const baseUrl = toDataUrl(basePath);
 
   return collectDirectoryLinks(documentNode, baseUrl)
     .filter((pathname) => isChildOfSubjects(pathname))
@@ -61,9 +61,9 @@ async function discoverSubjectDirectories() {
 }
 
 async function discoverLectureFiles(subjectId) {
-  const basePath = `./data/subjects/${subjectId}/`;
+  const basePath = `subjects/${subjectId}/`;
   const documentNode = await fetchDirectoryDocument(basePath);
-  const baseUrl = toAbsoluteUrl(basePath);
+  const baseUrl = toDataUrl(basePath);
 
   const subjectLinks = collectDirectoryLinks(documentNode, baseUrl)
     .filter((pathname) => isChildOfSubjects(pathname))
@@ -84,9 +84,9 @@ async function discoverLectureFiles(subjectId) {
 
   const groupedFiles = [];
   for (const questionSet of questionSetDirs) {
-    const setPath = `./data/subjects/${subjectId}/${questionSet}/`;
+    const setPath = `subjects/${subjectId}/${questionSet}/`;
     const setDocument = await fetchDirectoryDocument(setPath);
-    const setUrl = toAbsoluteUrl(setPath);
+    const setUrl = toDataUrl(setPath);
     const files = collectDirectoryLinks(setDocument, setUrl)
       .filter((pathname) => pathname.endsWith(".json"))
       .map((pathname) => lastPathSegment(pathname))
@@ -105,34 +105,19 @@ async function discoverLectureFiles(subjectId) {
 }
 
 async function fetchIndexManifest() {
-  const response = await fetch("./data/index.json");
+  const response = await fetch(toDataUrl("index.json"));
   if (!response.ok) {
     return { subjects: [] };
   }
   return response.json();
 }
 
-function loadScriptOnce(scriptPath) {
-  return new Promise((resolve, reject) => {
-    const absoluteSrc = toAbsoluteUrl(scriptPath);
-    const existing = document.querySelector(`script[data-quiz-src="${absoluteSrc}"]`);
-    if (existing) {
-      resolve();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = scriptPath;
-    script.async = true;
-    script.dataset.quizSrc = absoluteSrc;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`${scriptPath} 스크립트를 불러오지 못했습니다.`));
-    document.head.appendChild(script);
-  });
-}
-
 export async function fetchIndex() {
-  console.log("🚀 fetchIndex() 실행 시작");
+  const manifest = await fetchIndexManifest();
+  if (manifest.subjects?.length) {
+    return manifest;
+  }
+
   try {
     const subjectIds = await discoverSubjectDirectories();
     const subjects = [];
@@ -160,7 +145,7 @@ export async function fetchLecture(subjectId, lectureFile) {
     .split("/")
     .map((segment) => encodeURIComponent(segment))
     .join("/");
-  const lectureUrl = `./data/subjects/${encodeURIComponent(subjectId)}/${encodedLecturePath}`;
+  const lectureUrl = toDataUrl(`subjects/${encodeURIComponent(subjectId)}/${encodedLecturePath}`);
   const response = await fetch(lectureUrl);
   
   if (!response.ok) {
