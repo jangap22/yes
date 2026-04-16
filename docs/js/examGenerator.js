@@ -67,16 +67,20 @@ function gradeShort(question, userAnswer) {
     };
   }
 
-  const matchedKeywords = keywords.filter((keyword) => {
+  const keywordMatches = keywords.map((keyword) => {
     const keywordTokens = getTokenSet(keyword, { useSynonyms: true });
     if (!keywordTokens.size) {
-      return false;
+      return { keyword, ratio: 0 };
     }
 
     const matchedCount = [...keywordTokens].filter((token) => inputTokens.has(token)).length;
-    return matchedCount / keywordTokens.size >= 0.7;
+    return { keyword, ratio: matchedCount / keywordTokens.size };
   });
-  const keywordScoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
+  const totalKeywordWeight = keywordMatches.reduce((sum, item) => sum + 1, 0) || 1;
+  const keywordScoreRatio = keywordMatches.reduce((sum, item) => sum + item.ratio, 0) / totalKeywordWeight;
+  const matchedKeywords = keywordMatches
+    .filter((item) => item.ratio >= 0.7)
+    .map((item) => item.keyword);
 
   return {
     correct: keywordScoreRatio >= 0.7,
