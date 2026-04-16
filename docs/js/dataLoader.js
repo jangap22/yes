@@ -112,6 +112,14 @@ async function fetchIndexManifest() {
   return response.json();
 }
 
+async function readJsonResponse(response, resourceLabel) {
+  try {
+    return await response.json();
+  } catch (error) {
+    throw new Error(`${resourceLabel} JSON 파싱 실패: ${error.message}`);
+  }
+}
+
 export async function fetchIndex() {
   const manifest = await fetchIndexManifest();
   if (manifest.subjects?.length) {
@@ -152,13 +160,18 @@ export async function fetchLecture(subjectId, lectureFile) {
     throw new Error(`[HTTP ${response.status}] JSON을 불러오지 못했습니다: ${lectureUrl}`);
   }
 
-  return response.json();
+  return readJsonResponse(response, `${subjectId}/${lectureFile}`);
 }
 
 export async function fetchLectures(subjectId, lectures) {
-  const questionGroups = await Promise.all(
-    lectures.map((lecture) => fetchLecture(subjectId, lecture.file))
-  );
+  const questionGroups = [];
+  for (const lecture of lectures) {
+    try {
+      questionGroups.push(await fetchLecture(subjectId, lecture.file));
+    } catch (error) {
+      throw new Error(`${lecture.file} 로드 실패: ${error.message}`);
+    }
+  }
   return questionGroups.flat();
 }
 

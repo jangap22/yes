@@ -36,9 +36,13 @@
         </div>
         <div id="exam-ratio-panel" class="exam-ratio-panel" hidden>
           <div class="ratio-panel-head">
-            <strong>모의고사 챕터 출제 비율</strong>
-            <span id="ratio-summary">총 20문항 기준</span>
+            <strong>모의고사 출제 설정</strong>
+            <span id="ratio-summary">선택 챕터 균등 출제</span>
           </div>
+          <label class="exam-count-control">
+            <span>문제 개수</span>
+            <input id="exam-count-input" type="number" min="1" value="20" />
+          </label>
           <div id="chapter-ratio-list" class="chapter-ratio-list"></div>
         </div>
 

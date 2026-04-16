@@ -137,6 +137,23 @@ button {
   font-size: 0.9rem;
 }
 
+.exam-count-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.exam-count-control input {
+  width: 90px;
+  padding: 7px 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
 .chapter-ratio-list {
   display: grid;
   gap: 10px;
@@ -144,7 +161,7 @@ button {
 
 .chapter-ratio-row {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(160px, 2fr) 120px 90px;
+  grid-template-columns: minmax(160px, 1fr) 44px 120px 90px;
   align-items: center;
   gap: 10px;
   font-size: 0.86rem;
@@ -154,8 +171,9 @@ button {
   font-weight: 700;
 }
 
-.chapter-ratio-row input[type="range"] {
-  width: 100%;
+.chapter-ratio-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
   accent-color: var(--primary);
 }
 
@@ -328,6 +346,20 @@ button.main-btn {
 
 .keyword-tag.missed {
   color: #c0392b;
+}
+
+.essay-breakdown {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+  font-size: 0.9rem;
+}
+
+.essay-breakdown span {
+  display: block;
 }
 
 .score-banner {

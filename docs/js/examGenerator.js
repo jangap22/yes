@@ -50,42 +50,181 @@ function gradeObjective(question, userAnswer) {
 function gradeShort(question, userAnswer) {
   const input = normalizeText(userAnswer);
   const keywords = Array.isArray(question.k) ? question.k : [];
-  const matchedKeywords = keywords.filter((keyword) =>
-    input.includes(normalizeText(keyword))
-  );
-  const scoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
+  const inputTokens = getTokenSet(input, { useSynonyms: true });
+  const inputCompact = normalizeCompact(input);
+  const matchedKeywords = keywords.filter((keyword) => {
+    const keywordCompact = normalizeCompact(keyword);
+    if (keywordCompact && inputCompact.includes(keywordCompact)) {
+      return true;
+    }
+
+    const keywordTokens = tokenizeText(keyword, { useSynonyms: true });
+    if (!keywordTokens.length) {
+      return false;
+    }
+
+    const matchedCount = keywordTokens.filter((token) => inputTokens.has(token)).length;
+    return matchedCount / keywordTokens.length >= 0.7;
+  });
+  const keywordScoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
+
+  if (!keywords.length) {
+    const answerTokens = getTokenSet(question.a, { useSynonyms: true });
+    const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
+    return {
+      correct: tokenSimilarityRatio >= 0.7,
+      scoreRatio: tokenSimilarityRatio,
+      matchedKeywords: [],
+    };
+  }
 
   return {
-    correct: scoreRatio >= 0.4,
-    scoreRatio,
+    correct: keywordScoreRatio >= 0.7,
+    scoreRatio: keywordScoreRatio,
     matchedKeywords,
   };
 }
 
-function gradeEssay(question, userAnswer) {
-  const input = normalizeText(userAnswer);
-  const keywords = Array.isArray(question.k) ? question.k : [];
-  const matchedKeywords = [];
+const SYNONYM_GROUPS = [
+  ["소프트웨어", "sw", "software"],
+  ["공학", "engineering"],
+  ["요구사항", "요구", "requirement", "requirements"],
+  ["분석", "analysis"],
+  ["설계", "design"],
+  ["구현", "implementation", "개발"],
+  ["테스트", "testing", "검증"],
+  ["유지보수", "maintenance"],
+  ["품질", "quality"],
+  ["결함", "버그", "오류", "에러", "defect", "bug", "error"],
+  ["위험", "리스크", "risk"],
+  ["비용", "cost"],
+  ["일정", "스케줄", "schedule"],
+  ["모듈", "module"],
+  ["응집도", "응집력", "cohesion"],
+  ["결합도", "결합력", "coupling"],
+  ["재사용", "재사용성", "reuse", "reusability"],
+  ["신뢰성", "reliability"],
+  ["보안", "보안성", "security"],
+  ["효율", "효율성", "efficiency"],
+  ["성능", "performance"],
+  ["사용성", "usability"],
+  ["이식성", "portability"],
+  ["정량", "정량적", "quantitative"],
+  ["정성", "정성적", "qualitative"],
+  ["프로젝트", "project"],
+  ["관리", "management"],
+  ["데이터", "data"],
+  ["정보", "information"],
+  ["확률", "probability"],
+  ["분포", "distribution"],
+  ["평균", "mean", "average"],
+  ["분산", "variance"],
+  ["기대값", "expectation"],
+  ["엔트로피", "entropy"],
+  ["회귀", "regression"],
+  ["분류", "classification"],
+  ["학습", "learning"],
+  ["과적합", "overfitting"],
+  ["일반화", "generalization"],
+];
 
-  let recognizedCount = 0;
-  keywords.forEach((keyword) => {
-    const normalizedKeyword = normalizeText(keyword);
-    const keywordWords = normalizedKeyword.split(" ").filter(Boolean);
-    const matchedWords = keywordWords.filter((word) => input.includes(word));
-    if (
-      input.includes(normalizedKeyword) ||
-      (keywordWords.length > 0 && matchedWords.length / keywordWords.length >= 0.4)
-    ) {
-      recognizedCount += 1;
-      matchedKeywords.push(keyword);
+const SYNONYM_MAP = new Map(
+  SYNONYM_GROUPS.flatMap((group) =>
+    group.map((word) => [normalizeText(word), normalizeText(group[0])])
+  )
+);
+
+const ESSAY_ANSWER_PASS_RATIO = 0.4;
+const ESSAY_KEYWORD_PASS_RATIO = 0.7;
+const KOREAN_SUFFIXES = [
+  "으로부터",
+  "로부터",
+  "에게서",
+  "에서",
+  "에게",
+  "보다",
+  "으로",
+  "하며",
+  "하면",
+  "하고",
+  "한다",
+  "했다",
+  "된다",
+  "되는",
+  "하여",
+  "하게",
+  "으로",
+  "로",
+  "을",
+  "를",
+  "이",
+  "가",
+  "은",
+  "는",
+  "의",
+  "에",
+  "와",
+  "과",
+  "도",
+  "만",
+  "된",
+  "한",
+];
+
+function canonicalizeToken(token) {
+  const normalized = normalizeText(token);
+  return SYNONYM_MAP.get(normalized) || normalized;
+}
+
+function stripKoreanSuffix(token) {
+  for (const suffix of KOREAN_SUFFIXES) {
+    if (token.endsWith(suffix) && token.length > suffix.length + 1) {
+      return token.slice(0, -suffix.length);
+    }
+  }
+  return token;
+}
+
+function expandToken(token, useSynonyms) {
+  const normalized = normalizeText(token);
+  const stripped = stripKoreanSuffix(normalized);
+  const tokens = stripped === normalized ? [normalized] : [normalized, stripped];
+  return tokens.map((item) => (useSynonyms ? canonicalizeToken(item) : item));
+}
+
+function tokenizeText(value, { useSynonyms = true } = {}) {
+  const normalized = normalizeText(value)
+    .replace(/[()[\]{}'"`“”‘’.,!?/:;|+=*_~<>\\-]/g, " ")
+    .replace(/\s+/g, " ");
+  const rawTokens = normalized.match(/[a-z0-9]+|[가-힣]{2,}/g) || [];
+  return rawTokens.flatMap((token) => expandToken(token, useSynonyms)).filter((token) => token.length > 1);
+}
+
+function getTokenSet(value, options) {
+  return new Set(tokenizeText(value, options));
+}
+
+function getJaccardSimilarity(leftTokens, rightTokens) {
+  if (!leftTokens.size && !rightTokens.size) {
+    return 0;
+  }
+  let intersection = 0;
+  leftTokens.forEach((token) => {
+    if (rightTokens.has(token)) {
+      intersection += 1;
     }
   });
+  const union = new Set([...leftTokens, ...rightTokens]).size;
+  return union ? intersection / union : 0;
+}
 
-  const keywordScoreRatio = keywords.length ? recognizedCount / keywords.length : 0;
-  const targetCharBundle = String(question.a || "")
+function getCharacterOverlapRatio(answer, input) {
+  const targetCharBundle = String(answer || "")
     .replace(/[\s.,?/!]/g, "")
     .toLowerCase();
-  const inputCharBundle = input.replace(/[\s.,?/!]/g, "").toLowerCase();
+  const inputCharBundle = String(input || "")
+    .replace(/[\s.,?/!]/g, "")
+    .toLowerCase();
   const targetChars = [...targetCharBundle];
   let matchedCharCount = 0;
 
@@ -95,13 +234,79 @@ function gradeEssay(question, userAnswer) {
     }
   });
 
-  const charMatchRatio = targetChars.length ? matchedCharCount / targetChars.length : 0;
-  const scoreRatio = Math.max(keywordScoreRatio, charMatchRatio);
+  return targetChars.length ? matchedCharCount / targetChars.length : 0;
+}
+
+function getEssayAnswerSimilarity(answer, input, inputTokens) {
+  const answerTokens = getTokenSet(answer);
+  const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
+  const structureScoreRatio = getCharacterOverlapRatio(answer, input);
 
   return {
-    correct: keywordScoreRatio >= 0.6 || charMatchRatio >= 0.6,
+    answerScoreRatio: tokenSimilarityRatio * 0.7 + structureScoreRatio * 0.3,
+    tokenSimilarityRatio,
+    structureScoreRatio,
+  };
+}
+
+function normalizeCompact(value) {
+  return normalizeText(value).normalize("NFKC").replace(/\s+/g, "");
+}
+
+function getStrictKeywordMatchRatio(keyword, inputTokens, inputCompact) {
+  const keywordCompact = normalizeCompact(keyword);
+  if (keywordCompact && inputCompact.includes(keywordCompact)) {
+    return 1;
+  }
+
+  const keywordTokens = tokenizeText(keyword, { useSynonyms: false });
+  if (!keywordTokens.length) {
+    return 0;
+  }
+
+  const matchedCount = keywordTokens.filter((token) => inputTokens.has(token)).length;
+  return matchedCount / keywordTokens.length;
+}
+
+function gradeEssay(question, userAnswer) {
+  const input = normalizeText(userAnswer);
+  const keywords = Array.isArray(question.k) ? question.k : [];
+  const matchedKeywords = [];
+  const exactInputTokens = getTokenSet(input, { useSynonyms: false });
+  const semanticInputTokens = getTokenSet(input, { useSynonyms: true });
+  const inputCompact = normalizeCompact(input);
+  const answerMatch = getEssayAnswerSimilarity(question.a, input, semanticInputTokens);
+  let keywordScoreRatio = 0;
+
+  if (answerMatch.answerScoreRatio < ESSAY_ANSWER_PASS_RATIO) {
+    keywords.forEach((keyword) => {
+      const keywordMatchRatio = getStrictKeywordMatchRatio(keyword, exactInputTokens, inputCompact);
+      keywordScoreRatio = Math.max(keywordScoreRatio, keywordMatchRatio);
+      if (keywordMatchRatio >= ESSAY_KEYWORD_PASS_RATIO) {
+        matchedKeywords.push(keyword);
+      }
+    });
+  }
+
+  const passedByAnswer = answerMatch.answerScoreRatio >= ESSAY_ANSWER_PASS_RATIO;
+  const passedByKeyword = matchedKeywords.length > 0;
+  const scoreRatio = passedByAnswer
+    ? answerMatch.answerScoreRatio
+    : Math.max(answerMatch.answerScoreRatio, keywordScoreRatio);
+
+  return {
+    correct: passedByAnswer || passedByKeyword,
     scoreRatio,
     matchedKeywords,
+    essayBreakdown: {
+      passReason: passedByAnswer ? "answer" : passedByKeyword ? "keyword" : "none",
+      keywordScoreRatio,
+      answerScoreRatio: answerMatch.answerScoreRatio,
+      tokenSimilarityRatio: answerMatch.tokenSimilarityRatio,
+      structureScoreRatio: answerMatch.structureScoreRatio,
+      answerPassRatio: ESSAY_ANSWER_PASS_RATIO,
+      keywordPassRatio: ESSAY_KEYWORD_PASS_RATIO,
+    },
   };
 }
 

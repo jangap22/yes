@@ -36,6 +36,7 @@ const ui = {
   ratioPanel: document.getElementById("exam-ratio-panel"),
   ratioList: document.getElementById("chapter-ratio-list"),
   ratioSummary: document.getElementById("ratio-summary"),
+  examCount: document.getElementById("exam-count-input"),
   filterSection: document.getElementById("filter-section"),
   badge: document.getElementById("type-badge"),
   currentIdx: document.getElementById("current-idx"),
@@ -119,23 +120,31 @@ function getChapterAvailability() {
 
 function getNormalizedChapterRatios() {
   const chapters = getChapters();
-  const totalWeight = chapters.reduce(
-    (sum, chapter) => sum + Math.max(0, Number(state.chapterWeights[chapter]) || 0),
-    0
-  );
-  const fallbackWeight = chapters.length || 1;
+  const selectedChapters = chapters.filter((chapter) => state.chapterWeights[chapter] > 0);
+  const denominator = selectedChapters.length || chapters.length || 1;
+  const examCount = getExamQuestionCount();
 
   return chapters.map((chapter) => {
-    const weight = totalWeight > 0 ? state.chapterWeights[chapter] : 1;
-    const denominator = totalWeight > 0 ? totalWeight : fallbackWeight;
-    const ratio = denominator > 0 ? weight / denominator : 0;
+    const selected = selectedChapters.length
+      ? selectedChapters.includes(chapter)
+      : true;
+    const ratio = selected ? 1 / denominator : 0;
     return {
       chapter,
-      weight,
+      weight: selected ? 1 : 0,
       ratio,
-      expectedCount: Math.round(ratio * 20),
+      expectedCount: Math.round(ratio * examCount),
     };
   });
+}
+
+function getExamQuestionCount() {
+  const parsed = Number(ui.examCount.value);
+  const max = state.masterData.length || 1;
+  if (!Number.isFinite(parsed)) {
+    return Math.min(20, max);
+  }
+  return Math.max(1, Math.min(max, Math.floor(parsed)));
 }
 
 function updateRatioLabels() {
@@ -143,14 +152,16 @@ function updateRatioLabels() {
   rows.forEach((row) => {
     const valueNode = document.querySelector(`[data-ratio-value="${CSS.escape(row.chapter)}"]`);
     if (valueNode) {
-      valueNode.textContent = `${Math.round(row.ratio * 100)}% · 약 ${row.expectedCount}문항`;
+      valueNode.textContent = row.weight > 0
+        ? `${Math.round(row.ratio * 100)}% · 약 ${row.expectedCount}문항`
+        : "제외";
     }
   });
 
   const activeRows = rows.filter((row) => row.weight > 0);
   ui.ratioSummary.textContent = activeRows.length
-    ? `총 20문항 기준 · ${activeRows.length}개 챕터 반영`
-    : "모든 비율이 0이면 균등 비율로 출제됩니다.";
+    ? `${getExamQuestionCount()}문항 · ${activeRows.length}개 챕터 균등 출제`
+    : "최소 1개 챕터를 선택해야 합니다.";
 }
 
 function renderChapterRatioSliders() {
@@ -167,19 +178,21 @@ function renderChapterRatioSliders() {
   ui.ratioPanel.hidden = true;
   state.isExamSetupOpen = false;
   ui.examBtn.textContent = "📝 모의고사 시작";
+  ui.examCount.max = String(state.masterData.length);
+  ui.examCount.value = String(Math.min(20, state.masterData.length));
   chapters.forEach((chapter) => {
     state.chapterWeights[chapter] = 1;
     const row = document.createElement("label");
     row.className = "chapter-ratio-row";
     row.innerHTML = `
       <span class="chapter-ratio-title">${chapter}</span>
-      <input type="range" min="0" max="100" value="1" step="1" data-ratio-slider="${chapter}">
+      <input type="checkbox" checked data-ratio-toggle="${chapter}">
       <span class="chapter-ratio-value" data-ratio-value="${chapter}"></span>
       <span class="chapter-ratio-count">${availability[chapter]}문제 보유</span>
     `;
     const slider = row.querySelector("input");
-    slider.addEventListener("input", () => {
-      state.chapterWeights[chapter] = Number(slider.value);
+    slider.addEventListener("change", () => {
+      state.chapterWeights[chapter] = slider.checked ? 1 : 0;
       updateRatioLabels();
     });
     ui.ratioList.appendChild(row);
@@ -363,9 +376,25 @@ function startMockExam() {
       return;
     }
 
-    const exam = buildMockExam(state.masterData, {
-      chapterWeights: state.chapterWeights,
-      totalCount: 20,
+    const selectedChapters = getChapters().filter(
+      (chapter) => state.chapterWeights[chapter] > 0
+    );
+    if (!selectedChapters.length) {
+      window.alert("최소 1개 챕터를 선택하세요.");
+      return;
+    }
+
+    const examData = state.masterData.filter((question) =>
+      selectedChapters.includes(question.chapter)
+    );
+    const examCount = getExamQuestionCount();
+    const equalWeights = Object.fromEntries(
+      selectedChapters.map((chapter) => [chapter, 1])
+    );
+
+    const exam = buildMockExam(examData, {
+      chapterWeights: equalWeights,
+      totalCount: examCount,
     });
     state.isExamMode = true;
     state.examScores = [];
@@ -384,7 +413,7 @@ function startMockExam() {
     window.alert(`[모의고사 세션 시작]
 - 챕터 비율 기반 출제
 ${planText}
-- 총 20문항`);
+- 총 ${examCount}문항`);
   } catch (error) {
     window.alert(error.message);
   }
@@ -470,6 +499,31 @@ function submitAnswer(choiceValue = null) {
       detailHtml += `<span class="keyword-tag ${matched ? "matched" : "missed"}">${keyword}</span>`;
     });
   }
+
+  if (question.type === "essay" && result.essayBreakdown) {
+    const {
+      passReason,
+      keywordScoreRatio,
+      answerScoreRatio,
+      tokenSimilarityRatio,
+      structureScoreRatio,
+      answerPassRatio,
+      keywordPassRatio,
+    } =
+      result.essayBreakdown;
+    const reasonText = { answer: "정답 일치도 통과", keyword: "키워드 엄격 검사 통과", none: "통과 기준 미달" }[
+      passReason
+    ];
+    detailHtml += `
+      <div class="essay-breakdown">
+        <strong>[서술형 채점 요소]</strong>
+        <span>1차 정답 일치도 ${(answerScoreRatio * 100).toFixed(0)}% / ${(answerPassRatio * 100).toFixed(0)}% 이상 통과</span>
+        <span>2차 키워드 엄격 검사 ${(keywordScoreRatio * 100).toFixed(0)}% / ${(keywordPassRatio * 100).toFixed(0)}% 이상인 키워드 1개면 통과</span>
+        <span>토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% / 글자 보조 ${(structureScoreRatio * 100).toFixed(0)}%</span>
+        <span>판정: ${reasonText}</span>
+      </div>
+    `;
+  }
   ui.answerDetail.innerHTML = detailHtml;
 
   ui.submitBtn.style.display = "none";
@@ -511,6 +565,7 @@ function bindEvents() {
   ui.chapter.addEventListener("change", applyFilter);
   ui.type.addEventListener("change", applyFilter);
   ui.resetBtn.addEventListener("click", resetStudy);
+  ui.examCount.addEventListener("input", updateRatioLabels);
   ui.reviewBtn.addEventListener("click", startReview);
   ui.examBtn.addEventListener("click", startMockExam);
   ui.submitBtn.addEventListener("click", () => submitAnswer());
