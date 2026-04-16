@@ -51,18 +51,36 @@ function gradeShort(question, userAnswer) {
   const input = normalizeText(userAnswer);
   const keywords = Array.isArray(question.k) ? question.k : [];
   const inputTokens = getTokenSet(input, { useSynonyms: true });
+  const inputCompact = normalizeCompact(input);
+  const answerCompact = normalizeCompact(question.a);
+  const compactSimilarityRatio = getCharacterOverlapRatio(answerCompact, inputCompact);
+
+  if (compactSimilarityRatio >= 0.4) {
+    return {
+      correct: true,
+      scoreRatio: compactSimilarityRatio,
+      matchedKeywords: [],
+      shortBreakdown: {
+        mode: "answer-compact",
+        compactSimilarityRatio,
+        passRatio: 0.4,
+      },
+    };
+  }
+
   const answerTokens = getTokenSet(question.a, { useSynonyms: true });
   const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
+  const answerTokenCount = answerTokens.size;
 
-  if (tokenSimilarityRatio >= 0.4) {
+  if (answerTokenCount >= 2 && tokenSimilarityRatio >= 0.7) {
     return {
       correct: true,
       scoreRatio: tokenSimilarityRatio,
       matchedKeywords: [],
       shortBreakdown: {
-        mode: "answer",
+        mode: "answer-token",
         tokenSimilarityRatio,
-        passRatio: 0.4,
+        passRatio: 0.7,
       },
     };
   }
@@ -84,11 +102,12 @@ function gradeShort(question, userAnswer) {
 
   return {
     correct: keywordScoreRatio >= 0.7,
-    scoreRatio: keywords.length ? keywordScoreRatio : tokenSimilarityRatio,
+    scoreRatio: keywords.length ? keywordScoreRatio : compactSimilarityRatio,
     matchedKeywords,
     shortBreakdown: {
-      mode: keywords.length ? "keyword" : "answer",
+      mode: keywords.length ? "keyword" : "answer-compact",
       keywordScoreRatio,
+      compactSimilarityRatio,
       tokenSimilarityRatio,
       passRatio: keywords.length ? 0.7 : 0.4,
     },

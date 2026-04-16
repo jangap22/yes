@@ -623,14 +623,19 @@ function submitAnswer(choiceValue = null) {
 
   // 단답형과 서술형 문제에 대해서는 채점 요소별 세부 점수와 기준을 표시
   if (question.type === "short" && result.shortBreakdown) {
-    const { mode, keywordScoreRatio, tokenSimilarityRatio, passRatio } = result.shortBreakdown;
+    const { mode, keywordScoreRatio, compactSimilarityRatio, tokenSimilarityRatio, passRatio } =
+      result.shortBreakdown;
     detailHtml += `
       <div class="essay-breakdown">
         <strong>[단답형 채점 방식]</strong>
         ${
-          mode === "keyword"
+          mode === "answer-compact"
+            ? `<span>정답-답안 compact 유사도 ${(compactSimilarityRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
+            : mode === "answer-token"
+              ? `<span>정답-답안 토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
+              : mode === "keyword"
             ? `<span>키워드 일치율 ${(keywordScoreRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
-            : `<span>정답-답안 토큰 유사도 ${(tokenSimilarityRatio * 100).toFixed(0)}% / ${(passRatio * 100).toFixed(0)}% 이상 통과</span>`
+            : `<span>정답-답안 비교 ${(passRatio * 100).toFixed(0)}% 기준</span>`
         }
       </div>
     `;
