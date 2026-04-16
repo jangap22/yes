@@ -1,0 +1,466 @@
+[
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "The sample space is defined as the set of all possible outcomes of a random process.",
+    "a": "O",
+    "k": [
+      "sample space",
+      "random process"
+    ],
+    "explanation": "By definition, the sample space consists of all possible outcomes of a stochastic experiment."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "The sum rule allows for the calculation of marginal probability from a joint probability distribution.",
+    "a": "O",
+    "k": [
+      "sum rule",
+      "marginal probability"
+    ],
+    "explanation": "Marginalization is achieved by summing (or integrating) out the unwanted variables from the joint probability."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "Variance measures the strength of the linear relationship between two random variables.",
+    "a": "X",
+    "k": [
+      "variance",
+      "covariance"
+    ],
+    "explanation": "Covariance measures the dependency, while variance measures the dispersion of a single variable."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "Entropy in information theory is a measure of the average uncertainty or surprise associated with a random variable.",
+    "a": "O",
+    "k": [
+      "entropy",
+      "uncertainty"
+    ],
+    "explanation": "Entropy quantifies the expected amount of information produced by a stochastic source."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "A Bernoulli distribution is commonly used to model continuous data that is uniformly distributed over an interval.",
+    "a": "X",
+    "k": [
+      "Bernoulli",
+      "Uniform distribution"
+    ],
+    "explanation": "Bernoulli models binary outcomes, whereas the Uniform distribution models continuous data with equal probability over an interval."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "KL divergence is always symmetric, meaning the divergence from distribution P to Q is equal to that from Q to P.",
+    "a": "X",
+    "k": [
+      "KL divergence",
+      "symmetry"
+    ],
+    "explanation": "KL divergence is asymmetric, which is a key property of how it measures distance or information loss between distributions."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "ox",
+    "q": "The Gaussian distribution is uniquely defined by its mean and variance.",
+    "a": "O",
+    "k": [
+      "Gaussian distribution",
+      "mean",
+      "variance"
+    ],
+    "explanation": "The Gaussian (normal) distribution is fully parameterized by its mean (location) and variance (spread)."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Define the term 'Expectation' in the context of probability.",
+    "a": "The expected value is the weighted average of all possible values of a random variable.",
+    "k": [
+      "expectation",
+      "weighted average",
+      "random variable"
+    ],
+    "explanation": "Expectation is the long-term average outcome of a random variable."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What does the variance of a random variable represent?",
+    "a": "Variance quantifies the degree of dispersion or spread of a random variable around its mean.",
+    "k": [
+      "variance",
+      "dispersion",
+      "mean"
+    ],
+    "explanation": "Variance indicates how far the values of a variable typically fall from the mean."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is the relationship between joint and conditional probability as defined by the product rule?",
+    "a": "The joint probability is the product of the conditional probability and the marginal probability.",
+    "k": [
+      "joint probability",
+      "conditional probability",
+      "product rule"
+    ],
+    "explanation": "P(A, B) = P(A|B)P(B) is the product rule."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is the primary function of Bayes' Theorem?",
+    "a": "It provides a mechanism to update prior probabilities given new observed data.",
+    "k": [
+      "Bayes' Theorem",
+      "update",
+      "evidence"
+    ],
+    "explanation": "Bayes' theorem is the foundation of inferential statistics for updating beliefs."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Briefly describe the purpose of entropy in security.",
+    "a": "Entropy is used to measure the unpredictability or randomness of keys and passwords.",
+    "k": [
+      "entropy",
+      "randomness",
+      "cryptography"
+    ],
+    "explanation": "Higher entropy in secrets like keys makes them harder to guess or brute-force."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is the difference between marginal and joint probability?",
+    "a": "Joint probability covers the occurrence of multiple events together, while marginal probability covers a single event.",
+    "k": [
+      "joint probability",
+      "marginal probability"
+    ],
+    "explanation": "Marginal probability is derived from joint probability by excluding other variables."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Why is the Gaussian distribution significant in statistics?",
+    "a": "It appears frequently in natural processes due to the Central Limit Theorem and its mathematical tractability.",
+    "k": [
+      "Gaussian",
+      "Central Limit Theorem",
+      "tractability"
+    ],
+    "explanation": "Many phenomena aggregate to a Gaussian distribution, making it highly useful for modeling."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "How does KL divergence differ from a distance metric?",
+    "a": "KL divergence is not symmetric and does not satisfy the triangle inequality, unlike traditional metrics.",
+    "k": [
+      "KL divergence",
+      "symmetry",
+      "distance metric"
+    ],
+    "explanation": "It behaves like a distance measure but fails standard metric axioms."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Define the sample space in the context of a network attack simulation.",
+    "a": "The sample space is the set of all possible outcomes or attack scenarios that can occur within the system.",
+    "k": [
+      "sample space",
+      "attack scenarios"
+    ],
+    "explanation": "It is the set of all possible realizations of the experiment."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What does mutual information measure between two variables?",
+    "a": "It measures how much the uncertainty of one variable is reduced by knowing the other.",
+    "k": [
+      "mutual information",
+      "uncertainty reduction"
+    ],
+    "explanation": "It quantifies the information shared between two random variables."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "When should one use a Bernoulli distribution?",
+    "a": "When modeling a process with exactly two outcomes, such as success or failure.",
+    "k": [
+      "Bernoulli",
+      "binary",
+      "outcomes"
+    ],
+    "explanation": "It models experiments where the result is restricted to two values."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Explain the concept of 'independent' variables.",
+    "a": "Two variables are independent if the occurrence of one does not affect the probability of the other.",
+    "k": [
+      "independence",
+      "probability"
+    ],
+    "explanation": "Mathematically, P(A, B) = P(A)P(B)."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is meant by the 'marginalization' of a variable?",
+    "a": "Summing out or integrating a variable from a joint distribution to obtain the probability of the remaining variables.",
+    "k": [
+      "marginalization",
+      "sum rule"
+    ],
+    "explanation": "This process simplifies a complex joint distribution into a simpler marginal one."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is the role of the covariance in identifying variable relationships?",
+    "a": "Covariance provides a measure of how two random variables change together.",
+    "k": [
+      "covariance",
+      "linear relationship"
+    ],
+    "explanation": "Positive covariance suggests variables increase together; negative implies they move inversely."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is the uniform distribution typically used to represent?",
+    "a": "It represents a state where all outcomes in an interval are equally likely.",
+    "k": [
+      "uniform distribution",
+      "equally likely"
+    ],
+    "explanation": "It models maximum uncertainty within a bounded range."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "How does probability theory address uncertainty in security?",
+    "a": "It models unpredictable events as random variables to estimate risk and likelihood.",
+    "k": [
+      "uncertainty",
+      "probability",
+      "risk estimation"
+    ],
+    "explanation": "It provides a formal language to manage unknown threats."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "What is a stochastic process?",
+    "a": "A process that describes a system that evolves over time according to probabilistic rules.",
+    "k": [
+      "stochastic process",
+      "randomness"
+    ],
+    "explanation": "It is a sequence of random variables representing a system changing over time."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "short",
+    "q": "Why is Bayes' Theorem essential in spam filtering?",
+    "a": "It calculates the probability of a message being spam given specific content features.",
+    "k": [
+      "Bayes' Theorem",
+      "spam filtering"
+    ],
+    "explanation": "It updates the probability of 'spam' versus 'ham' based on observed evidence."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Explain how Bayes' Theorem applies to security intrusion detection.",
+    "a": "Bayes' Theorem allows updating the probability of an intrusion being real based on the observation of specific network indicators.",
+    "k": [
+      "Bayes' Theorem",
+      "intrusion detection",
+      "posterior probability"
+    ],
+    "explanation": "It helps minimize false positives by incorporating prior knowledge of normal traffic."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Discuss why entropy is a critical metric in password policy enforcement.",
+    "a": "Higher entropy ensures that a password is not easily guessable, increasing the brute-force cost for an attacker.",
+    "k": [
+      "entropy",
+      "password security",
+      "brute-force"
+    ],
+    "explanation": "Entropy represents the information-theoretic limit on guessing complexity."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Describe the difference between joint and conditional probability with an example.",
+    "a": "Joint probability is the chance of two events happening together, while conditional probability is the chance of one event happening, given another has occurred.",
+    "k": [
+      "joint probability",
+      "conditional probability"
+    ],
+    "explanation": "Joint: P(A and B); Conditional: P(A|B)."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "How do mean and variance describe a dataset in a security incident report?",
+    "a": "The mean provides the expected incident frequency, while variance indicates the inconsistency or volatility of incident occurrences.",
+    "k": [
+      "mean",
+      "variance",
+      "incident response"
+    ],
+    "explanation": "These statistics help baseline system behavior to detect anomalies."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Why is it important to understand the distribution of data when applying security analytics?",
+    "a": "Choosing an inappropriate distribution model can lead to inaccurate anomaly detection and erroneous risk assessments.",
+    "k": [
+      "data distribution",
+      "security analytics",
+      "model accuracy"
+    ],
+    "explanation": "Analytics must be tailored to the specific characteristics of the data being analyzed."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Explain the relationship between KL divergence and information loss.",
+    "a": "KL divergence measures the information lost when an approximate distribution is used to represent an original, true distribution.",
+    "k": [
+      "KL divergence",
+      "information loss",
+      "approximation"
+    ],
+    "explanation": "It quantifies the penalty of choosing a simpler model over the true underlying distribution."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "How does the Gaussian distribution help in modeling normal user behavior?",
+    "a": "It assumes that most user activity clusters around a mean with rare deviations, allowing for easy identification of outliers.",
+    "k": [
+      "Gaussian distribution",
+      "user behavior",
+      "anomaly detection"
+    ],
+    "explanation": "Points outside the standard deviations of the Gaussian are treated as potential security threats."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "What is the significance of the sum rule in high-dimensional security datasets?",
+    "a": "The sum rule allows security analysts to simplify data by marginalizing out irrelevant features to focus on specific threats.",
+    "k": [
+      "sum rule",
+      "marginalization",
+      "dimensionality reduction"
+    ],
+    "explanation": "It provides a formal way to reduce complexity while maintaining probabilistic integrity."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Briefly argue the necessity of statistics in modern cybersecurity.",
+    "a": "Statistics are required to detect patterns, identify anomalies, and quantify risks in massive, noisy datasets.",
+    "k": [
+      "statistics",
+      "cybersecurity",
+      "pattern recognition"
+    ],
+    "explanation": "Cybersecurity generates massive logs that require statistical interpretation to be actionable."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Explain how mutual information identifies feature dependency in threat modeling.",
+    "a": "Mutual information quantifies how much knowing one security feature reveals about another, aiding in feature selection for classifiers.",
+    "k": [
+      "mutual information",
+      "feature selection",
+      "threat modeling"
+    ],
+    "explanation": "It helps remove redundant features that do not contribute to classification performance."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Define the role of the sample space in formulating security experiments.",
+    "a": "The sample space defines the boundary conditions and the scope of potential incidents being analyzed in a simulation.",
+    "k": [
+      "sample space",
+      "security experiment",
+      "scope"
+    ],
+    "explanation": "Clear definition of the sample space ensures that the probabilities calculated are exhaustive and valid."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "How do you distinguish between a discrete and a continuous random variable?",
+    "a": "A discrete variable takes on countable values, whereas a continuous variable can take on any value within an interval.",
+    "k": [
+      "discrete",
+      "continuous",
+      "random variable"
+    ],
+    "explanation": "This distinction determines whether probability mass functions or probability density functions are used."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "Discuss the limitation of using variance as the sole metric for security volatility.",
+    "a": "Variance only captures symmetric dispersion and can be heavily influenced by extreme outliers, potentially masking subtle threats.",
+    "k": [
+      "variance",
+      "limitation",
+      "outliers"
+    ],
+    "explanation": "Robust statistics should be used to complement variance in security analysis."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "How can the product rule be leveraged to model multi-stage attacks?",
+    "a": "The product rule allows breaking down complex, multi-stage attack probabilities into sequential conditional probability steps.",
+    "k": [
+      "product rule",
+      "multi-stage attack",
+      "conditional probability"
+    ],
+    "explanation": "It models the chain of events necessary for a successful breach."
+  },
+  {
+    "chapter": "2_statistics",
+    "type": "essay",
+    "q": "What is the primary objective of quantifying uncertainty in security?",
+    "a": "The objective is to move from subjective guesses to objective risk assessments that guide resource allocation.",
+    "k": [
+      "uncertainty",
+      "risk assessment",
+      "resource allocation"
+    ],
+    "explanation": "Quantification supports data-driven decision making for defense investments."
+  }
+]
