@@ -8,6 +8,11 @@
           "file": "problemset-test/advanced_ai.json",
           "questionSet": "problemset-test",
           "chapter": "Advanced Ai"
+        },
+        {
+          "file": "problemset/3_linear algebra.json",
+          "questionSet": "problemset",
+          "chapter": "3 Linear Algebra"
         }
       ]
     },
