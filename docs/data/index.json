@@ -46,6 +46,11 @@
           "chapter": "03 Process"
         },
         {
+          "file": "problemset/04_devops.json",
+          "questionSet": "problemset",
+          "chapter": "04 Devops"
+        },
+        {
           "file": "problemset-test/01_overview.json",
           "questionSet": "problemset-test",
           "chapter": "01. Overview"
