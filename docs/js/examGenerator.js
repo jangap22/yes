@@ -51,11 +51,10 @@ function gradeShort(question, userAnswer) {
   const input = normalizeText(userAnswer);
   const keywords = Array.isArray(question.k) ? question.k : [];
   const inputTokens = getTokenSet(input, { useSynonyms: true });
-  const inputCompact = normalizeCompact(input);
   const answerTokens = getTokenSet(question.a, { useSynonyms: true });
   const tokenSimilarityRatio = getJaccardSimilarity(answerTokens, inputTokens);
 
-  if (tokenSimilarityRatio >= 0.7) {
+  if (tokenSimilarityRatio >= 0.4) {
     return {
       correct: true,
       scoreRatio: tokenSimilarityRatio,
@@ -63,50 +62,31 @@ function gradeShort(question, userAnswer) {
       shortBreakdown: {
         mode: "answer",
         tokenSimilarityRatio,
-        passRatio: 0.7,
+        passRatio: 0.4,
       },
     };
   }
 
   const matchedKeywords = keywords.filter((keyword) => {
-    const keywordCompact = normalizeCompact(keyword);
-    if (keywordCompact && inputCompact.includes(keywordCompact)) {
-      return true;
-    }
-
-    const keywordTokens = tokenizeText(keyword, { useSynonyms: true });
-    if (!keywordTokens.length) {
+    const keywordTokens = getTokenSet(keyword, { useSynonyms: true });
+    if (!keywordTokens.size) {
       return false;
     }
 
-    const matchedCount = keywordTokens.filter((token) => inputTokens.has(token)).length;
-    return matchedCount / keywordTokens.length >= 0.7;
+    const matchedCount = [...keywordTokens].filter((token) => inputTokens.has(token)).length;
+    return matchedCount / keywordTokens.size >= 0.7;
   });
   const keywordScoreRatio = keywords.length ? matchedKeywords.length / keywords.length : 0;
 
-  if (!keywords.length) {
-    return {
-      correct: false,
-      scoreRatio: tokenSimilarityRatio,
-      matchedKeywords: [],
-      shortBreakdown: {
-        mode: "answer",
-        tokenSimilarityRatio,
-        keywordScoreRatio: 0,
-        passRatio: 0.7,
-      },
-    };
-  }
-
   return {
     correct: keywordScoreRatio >= 0.7,
-    scoreRatio: keywordScoreRatio,
+    scoreRatio: keywords.length ? keywordScoreRatio : tokenSimilarityRatio,
     matchedKeywords,
     shortBreakdown: {
-      mode: "keyword",
+      mode: keywords.length ? "keyword" : "answer",
       keywordScoreRatio,
       tokenSimilarityRatio,
-      passRatio: 0.7,
+      passRatio: keywords.length ? 0.7 : 0.4,
     },
   };
 }
@@ -223,7 +203,9 @@ function tokenizeText(value, { useSynonyms = true } = {}) {
     .replace(/[()[\]{}'"`“”‘’.,!?/:;|+=*_~<>\\-]/g, " ")
     .replace(/\s+/g, " ");
   const rawTokens = normalized.match(/[a-z0-9]+|[가-힣]{2,}/g) || [];
-  return rawTokens.flatMap((token) => expandToken(token, useSynonyms)).filter((token) => token.length > 1);
+  return rawTokens
+    .flatMap((token) => expandToken(token, useSynonyms))
+    .filter((token) => token.length > 1 || /^\d+$/.test(token));
 }
 
 function getTokenSet(value, options) {
