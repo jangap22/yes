@@ -5,6 +5,11 @@
       "name": "Advanced Ai",
       "lectures": [
         {
+          "file": "problemset/2_statistics.json",
+          "questionSet": "problemset",
+          "chapter": "2 Statistics"
+        },
+        {
           "file": "problemset/3_linear algebra.json",
           "questionSet": "problemset",
           "chapter": "3 Linear Algebra"
