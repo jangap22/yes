@@ -8,26 +8,6 @@
           "file": "problemset-test/advanced_ai.json",
           "questionSet": "problemset-test",
           "chapter": "Advanced Ai"
-        },
-        {
-          "file": "problemset/2_statistics.json",
-          "questionSet": "problemset",
-          "chapter": "2 Statistics"
-        },
-        {
-          "file": "problemset/3_linear algebra.json",
-          "questionSet": "problemset",
-          "chapter": "3 Linear Algebra"
-        },
-        {
-          "file": "problemset/4_regression.json",
-          "questionSet": "problemset",
-          "chapter": "4 Regression"
-        },
-        {
-          "file": "problemset/5_multi-layer perceptron.json",
-          "questionSet": "problemset",
-          "chapter": "5 Multi-Layer Perceptron"
         }
       ]
     },
@@ -44,21 +24,6 @@
           "file": "problemset-test/sw_engineering.json",
           "questionSet": "problemset-test",
           "chapter": "Sw Engineering"
-        },
-        {
-          "file": "problemset/01_overview.json",
-          "questionSet": "problemset",
-          "chapter": "01 Overview"
-        },
-        {
-          "file": "problemset/sw_engineering_01_overview.json",
-          "questionSet": "problemset",
-          "chapter": "[26-1] 소프트웨어공학 1.소프트웨어 공학 개요"
-        },
-        {
-          "file": "problemset/sw_engineering_01_overview2.json",
-          "questionSet": "problemset",
-          "chapter": "[26-1] 소프트웨어공학 1.소프트웨어 공학 개요 2"
         }
       ]
     }
