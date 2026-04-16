@@ -132,6 +132,7 @@ function loadScriptOnce(scriptPath) {
 }
 
 export async function fetchIndex() {
+  console.log("🚀 fetchIndex() 실행 시작");
   try {
     const subjectIds = await discoverSubjectDirectories();
     const subjects = [];
@@ -154,18 +155,16 @@ export async function fetchIndex() {
     return fetchIndexManifest();
   }
 }
-// 배포 환경에서는 상대 경로가 달라질 수 있으므로, BASE_PATH를 동적으로 설정합니다.
-const BASE_PATH = window.location.pathname.startsWith("/yes")
-  ? "/yes"
-  : "";
-
 export async function fetchLecture(subjectId, lectureFile) {
-  const response = await fetch(
-    `${BASE_PATH}/data/subjects/${subjectId}/${lectureFile}`
-  );
-
+  const encodedLecturePath = lectureFile
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+  const lectureUrl = `./data/subjects/${encodeURIComponent(subjectId)}/${encodedLecturePath}`;
+  const response = await fetch(lectureUrl);
+  
   if (!response.ok) {
-    throw new Error(`${subjectId}/${lectureFile} JSON을 불러오지 못했습니다.`);
+    throw new Error(`[HTTP ${response.status}] JSON을 불러오지 못했습니다: ${lectureUrl}`);
   }
 
   return response.json();

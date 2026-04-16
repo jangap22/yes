@@ -20,6 +20,7 @@ const state = {
   subject: null,
   lectures: [],
   chapterWeights: {},
+  isExamSetupOpen: false,
 };
 
 const ui = {
@@ -163,7 +164,9 @@ function renderChapterRatioSliders() {
     return;
   }
 
-  ui.ratioPanel.hidden = false;
+  ui.ratioPanel.hidden = true;
+  state.isExamSetupOpen = false;
+  ui.examBtn.textContent = "📝 모의고사 시작";
   chapters.forEach((chapter) => {
     state.chapterWeights[chapter] = 1;
     const row = document.createElement("label");
@@ -352,6 +355,14 @@ function startReview() {
 
 function startMockExam() {
   try {
+    if (!state.isExamSetupOpen) {
+      state.isExamSetupOpen = true;
+      ui.ratioPanel.hidden = false;
+      ui.examBtn.textContent = "설정한 비율로 시작";
+      updateRatioLabels();
+      return;
+    }
+
     const exam = buildMockExam(state.masterData, {
       chapterWeights: state.chapterWeights,
       totalCount: 20,
@@ -360,7 +371,9 @@ function startMockExam() {
     state.examScores = [];
     state.filteredData = exam.questions;
     state.currentIndex = 0;
+    state.isExamSetupOpen = false;
     ui.filterSection.style.display = "none";
+    ui.ratioPanel.hidden = true;
     ui.quitBtn.style.display = "inline-flex";
     setQuestionCount();
     ui.currentIdx.textContent = "1";
